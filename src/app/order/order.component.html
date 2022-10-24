@@ -1,0 +1,123 @@
+<section class="content-header">
+</section>
+
+<section class="content">
+  <section class="invoice">
+
+        <form #form="ngForm" novalidate>
+          <div class="row">
+            <div class="col-xs-12">
+
+              <h2 class="page-header">
+                <i class="fa fa-shopping-cart"></i> 
+                Finalize o seu pedido
+              </h2>
+
+            </div>
+          </div>                
+
+          <!--Endereço-->
+          <div class="row invoice-info">
+
+            <div class="col-xs-12">
+              <p class="lead">
+                Endereço de Entrega:
+              </p>
+            </div>
+
+            <div class="col-sm-6 col-xs-12">
+              <mt-input-container errorMessage="Campo obrigatório com 5 caracteres" label="Endereço">
+                <input name="adress" 
+                       ngModel 
+                       required 
+                       minlength="5" 
+                       placeholder="Endereço"
+                       autocomplete="off" 
+                       class="form-control">
+              </mt-input-container>
+            </div>
+
+            <div class="col-sm-2 col-xs-6">
+              <mt-input-container errorMessage="Campo obrigatório" label="Número">
+                <input ngModel 
+                       type="number" 
+                       name="number" 
+                       required 
+                       placeholder="Número" 
+                       autocomplete="off"
+                       class="form-control">
+              </mt-input-container>
+            </div>
+
+            <div class="col-sm-4 col-xs-6">
+              <mt-input-container label="Complemento">
+                <input ngModel
+                       type="text" 
+                       name="optionalAddress"  
+                       placeholder="Complemento"
+                       class="form-control">
+              </mt-input-container>
+            </div>
+
+          </div>
+          <!--Fim do endereço-->
+
+          <!--Tabela de items-->
+          <div class="row">
+
+            <div class="col-xs-12">
+              <p class="lead">Itens do Pedido:</p>
+            </div>
+
+            <mt-order-items 
+              [items]="cartItems()" 
+              (icrQuantity)="icrQuantity($event)"
+              (dcrQuantity)="dcrQuantity($event)"
+              (remove)="remove($event)"
+            ></mt-order-items>
+
+          </div>
+          <!--Fim tabela de items-->
+
+          <div class="row">
+
+            <div class="col-sm-6 col-xs-12">
+              <p class="lead">Formas de Pagamento:</p>
+
+              <div class="form-group">
+                <mt-radio 
+                  [options]="paymentOptions"  
+                  name="paymentOption" 
+                  ngModel 
+                  required
+                ></mt-radio>
+              </div>
+            </div>
+
+            <div class="col-sm-6 col-xs-12">
+              <p class="lead">Frete e Total:</p>
+              <mt-delivery-costs 
+                [delivery]="delivery" 
+                [itemsValue]="itemsValue()"
+              ></mt-delivery-costs>
+            </div>
+
+          </div>
+        </form>
+
+        <div class="row">
+          <div class="col-xs-12">
+            <button 
+              (click)="checkOrder(form.value)" 
+              href="order-summary.html" 
+              [disabled]="!form.valid || cartItems().length === 0" 
+              class="btn btn-success pull-right"
+            >
+              <i class="fa fa-credit-card"></i> 
+              Concluir Pedido
+            </button>
+          </div>
+        </div>
+
+    </section>
+</section>

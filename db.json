@@ -230,7 +230,7 @@
       "restaurantId": "bread-bakery"
     },
     {
-      "name": "Renata",
+      "name": "Marcela",
       "date": "2016-12-12T18:25:43",
       "rating": 5,
       "comments": "Nunca deixou na mão, comida sempre deliciosa.",
@@ -370,5 +370,49 @@
       "restaurantId": "tasty-treats"
     }
   ],
-  "orders": []
+  "orders": [
+    {
+      "id": 1
+    },
+    {
+      "id": 2
+    },
+    {
+      "id": 3
+    },
+    {
+      "adress": "Teste",
+      "number": 123,
+      "optionalAddress": "teste",
+      "paymentOption": "CRED",
+      "orderItems": [
+        {
+          "quantity": 1,
+          "menuId": "sunday"
+        },
+        {
+          "quantity": 1,
+          "menuId": "chocpop"
+        }
+      ],
+      "id": 4
+    },
+    {
+      "adress": "Novo teste de compra",
+      "number": 14,
+      "optionalAddress": "Novo teste",
+      "paymentOption": "MON",
+      "orderItems": [
+        {
+          "quantity": 1,
+          "menuId": "cup-cake"
+        },
+        {
+          "quantity": 1,
+          "menuId": "donut"
+        }
+      ],
+      "id": 5
+    }
+  ]
 }

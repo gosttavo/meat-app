@@ -17,7 +17,8 @@ export class RestaurantsComponent implements OnInit {
   ngOnInit() {
     //subscribe para fazer requisição http
     //restaurants vai receber a lista de restaurantes e vai passar para a propriedade
-    this.restaurantsService.restaurants().subscribe(restaurants => this.restaurants = restaurants);
+    this.restaurantsService.restaurants()
+    .subscribe(restaurants => this.restaurants = restaurants);
   }
 
 }
