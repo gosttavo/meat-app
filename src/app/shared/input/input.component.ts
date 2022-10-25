@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, ContentChild, AfterContentInit } from '@angular/core';
-import { NgModel } from '@angular/forms';
+import { NgModel, FormControlName } from '@angular/forms';
 
 @Component({
   selector: 'mt-input-container',
@@ -16,6 +16,8 @@ export class InputComponent implements OnInit, AfterContentInit {
   //que vai passar informação p esse input
   @ContentChild(NgModel) model: NgModel;
 
+  @ContentChild(FormControlName) control: FormControlName;
+
   constructor() { }
 
   ngOnInit() {
@@ -24,10 +26,10 @@ export class InputComponent implements OnInit, AfterContentInit {
   //vai ser chamado após o conteúdo do componente
   //ser definido
   ngAfterContentInit() {
-    this.input = this.model;
+    this.input = this.model || this.control
     
     if(this.input === undefined){
-      throw new Error('Diretiva ngModel necessária para usar esse componente');
+      throw new Error('Diretiva ngModel ou FormControlName necessária para usar esse componente');
     }
   };
 

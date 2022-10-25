@@ -39,7 +39,7 @@ export class OrderService{
         this.cartService.clear();
     }
 
-    //chamada HTTP, retornar observable como string
+    //chamada HTTP -> finalizar a compra
     checkOrder(order: Order): Observable<string>{
         //3 parâmetros -> post
         //1º -> URL para onde o objeto será mandado
