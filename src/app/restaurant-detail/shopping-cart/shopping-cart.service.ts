@@ -1,12 +1,22 @@
+import { Injectable } from "@angular/core";
+
+import { NotificationService } from "app/shared/messages/notification.service";
+
 import { MenuItem } from "../menu-item/menu-item.model";
 import { CartItem } from "./cart-item.model";
 
+@Injectable()
 export class ShoppingCartService {
     items: CartItem[] = [];
+
+    //vai receber o evento notificação
+    constructor(private notificationService: NotificationService){}
 
     //método clear para limpar itens do carrinho
     clear(){
         this.items = [];
+
+        this.notificationService.notify(`Você removou todos os itens do carrinho.`);
     }
 
     //adicionar items no carrinho
@@ -21,6 +31,7 @@ export class ShoppingCartService {
             //se não encontrar, adiciona no carrinho
             this.items.push(new CartItem(item));
         }
+        this.notificationService.notify(`Você adicionou o item ${item.name}`);
     }
 
     icrQuantity(item: CartItem){
@@ -30,7 +41,9 @@ export class ShoppingCartService {
     //rmeover items no carrinho
     removeItem(item: CartItem){
         //remover 1 item a partir do índice do item
-        this.items.splice(this.items.indexOf(item), 1)
+        this.items.splice(this.items.indexOf(item), 1);
+
+        this.notificationService.notify(`Você removeu o item ${item.menuItem.name}`);
     }
 
     dcrQuantity(item: CartItem){

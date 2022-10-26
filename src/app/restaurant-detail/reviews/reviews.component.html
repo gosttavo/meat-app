@@ -1,7 +1,7 @@
 <!--pipe async -> vai pegar os dados do subscrive e interar sobre ele -->
 <div class="col-xs-12 col-sm-6" *ngFor="let review of reviews | async">
 
-  <div class="box box-solid">
+  <div [@reviewAppeared]="reviewState" class="box box-solid">
     <div class="box-header with-border">
       <span class="review-score pull-right">
         <i class="fa fa-star"></i>

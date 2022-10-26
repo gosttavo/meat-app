@@ -1,6 +1,7 @@
 import { Routes } from "@angular/router";
 
 import { HomeComponent } from "./home/home.component";
+import { NotFoundComponent } from "./not-found/not-found.component";
 import { OrderSummaryComponent } from "./order-summary/order-summary.component";
 import { MenuComponent } from "./restaurant-detail/menu/menu.component";
 import { RestaurantDetailComponent } from "./restaurant-detail/restaurant-detail.component";
@@ -9,7 +10,6 @@ import { RestaurantsComponent } from "./restaurants/restaurants.component";
 
 export const ROUTES: Routes = [
     {path: '', component: HomeComponent},
-    {path: 'about', loadChildren: './about/about.module#AboutModule'}, //lazy loading
     {path: 'restaurants', component: RestaurantsComponent},
     {path: 'restaurants/:id', component: RestaurantDetailComponent,
         children: [
@@ -19,4 +19,6 @@ export const ROUTES: Routes = [
     ]},
     {path: 'order', loadChildren: './order/order.module#OrderModule'}, //Lazy loading
     {path: 'order-summary', component: OrderSummaryComponent},
+    {path: 'about', loadChildren: './about/about.module#AboutModule'}, //lazy loading
+    {path: '**', component: NotFoundComponent} //rota wildcard - nao encontrado
 ]
