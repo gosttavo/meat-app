@@ -27,7 +27,7 @@ import { NotFoundComponent } from './not-found/not-found.component';
     AppComponent,
     HeaderComponent,
     HomeComponent,
-    RestaurantsComponent,
+    RestaurantsComponent,   
     RestaurantComponent,
     RestaurantDetailComponent,
     MenuComponent,
@@ -47,7 +47,6 @@ import { NotFoundComponent } from './not-found/not-found.component';
     BrowserAnimationsModule,
   ],
   providers: [
-    {provide: LocationStrategy, useClass: HashLocationStrategy},
     {provide: LOCALE_ID, useValue: 'pt-BR'}, 
   ],
   bootstrap: [AppComponent]
