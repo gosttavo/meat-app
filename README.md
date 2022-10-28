@@ -4,7 +4,7 @@
 
 ### Clonando o Repositório
 
-`git clone https://github.com/cod3rcursos/meat-app-starter.git`
+`git clone https://github.com/gosttavoo/meat-app-starter.git`
 
 ### Instalando as Dependências
 
@@ -22,7 +22,7 @@
 
 ### Iniciando o serviço (raiz da aplicação)
 
-`json-server db.json`
+`nodemon --watch backend backend/dist/server.js`
 
 ## Goodies
 
