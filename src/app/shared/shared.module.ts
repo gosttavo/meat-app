@@ -11,6 +11,7 @@ import { RadioComponent } from "./radio/radio.component";
 import { RatingComponent } from "./rating/rating.component";
 import { SnackbarComponent } from './messages/snackbar/snackbar.component'
 import { NotificationService } from "./messages/notification.service";
+import { LoginService } from "app/security/login/login.service";
 
 @NgModule({
     declarations: [
@@ -44,6 +45,7 @@ export class SharedModule {
                 RestaurantService, 
                 OrderService,
                 NotificationService,
+                LoginService
             ]
         }
     }

@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import { User, users } from './users';
 
 import * as jwt from 'jsonwebtoken';
+import { apiConfig } from './api-config';
 
 export const handleAuthentication = (req: Request, resp: Response) => {
     //const que vai pegar o body do request
@@ -11,7 +12,7 @@ export const handleAuthentication = (req: Request, resp: Response) => {
         const dbUser = users[user.email];
         
         //criar token de acesso do usuário
-        const token = jwt.sign({sub: dbUser.email, iss: 'meat-api'}, 'meat-api-password');
+        const token = jwt.sign({sub: dbUser.email, iss: 'meat-api'}, apiConfig.secret);
 
         resp.json({name: dbUser.name, email: dbUser.email, accessToken: token});
     }else {
