@@ -7,14 +7,19 @@ import { MEAT_API } from "app/app.api";
 import { User } from "./user.model";
 
 import 'rxjs/add/operator/do';
-import { Router } from "@angular/router";
+import 'rxjs/add/operator/filter';
+import { NavigationEnd, Router } from "@angular/router";
 
 @Injectable()
 export class LoginService {
 
     user: User;
+    lastUrl: string;
 
-    constructor(private http:HttpClient, private router: Router){}
+    constructor(private http:HttpClient, private router: Router){
+        this.router.events.filter(e => e instanceof NavigationEnd)
+                          .subscribe((e: NavigationEnd) => this.lastUrl = e.url);
+    }
 
     //método p verificar se o usuário ta logado
     isLoggedIn(): boolean{
@@ -29,8 +34,13 @@ export class LoginService {
 
     //se o usuário tentar finalizar compra sem estar logado
     //envia pra tela de login
-    handleLogin(path?: string){
-        this.router.navigate(['/login', path]);
+    handleLogin(path: string = this.lastUrl){
+        this.router.navigate(['/login', btoa(path)]);
+    }
+
+    //função de logout
+    logout(){
+        this.user = undefined;
     }
 
 }
