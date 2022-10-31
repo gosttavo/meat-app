@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule, LOCALE_ID } from '@angular/core';
+import { NgModule, LOCALE_ID, ErrorHandler } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { PreloadAllModules, RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -26,6 +26,7 @@ import { OrderSummaryComponent } from './order-summary/order-summary.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { LoginComponent } from './security/login/login.component';
 import { UserDetailComponent } from './header/user-detail/user-detail.component';
+import { AppErrorHandler } from './app.error-handler';
 
 @NgModule({
   declarations: [
@@ -54,7 +55,8 @@ import { UserDetailComponent } from './header/user-detail/user-detail.component'
     BrowserAnimationsModule,
   ],
   providers: [
-    {provide: LOCALE_ID, useValue: 'pt'}, 
+    {provide: LOCALE_ID, useValue: 'pt'},
+    {provide: ErrorHandler, useClass: AppErrorHandler}, 
   ],
   bootstrap: [AppComponent]
 })

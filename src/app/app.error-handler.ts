@@ -1,21 +1,40 @@
 import { HttpErrorResponse } from "@angular/common/http";
-import { Observable } from "rxjs/Observable";
+import { ErrorHandler, Injectable, Injector, NgZone } from "@angular/core";
+import { LoginService } from "./security/login/login.service";
+
+import { NotificationService } from "./shared/messages/notification.service";
 
 //classe para tratar erros
-export class ErrorHandler{
-    //método estático -> parâmetro response -> vai me dizer qual url tentou acessar
-    static handleError(error: HttpErrorResponse | any){
-        let errorMessage: string;
+@Injectable()
+export class AppErrorHandler extends ErrorHandler{
 
-        if(error instanceof HttpErrorResponse){
-            const body = error.error;
-            errorMessage = 
-                `${error.url} : ${error.status} - ${error.statusText || ''} ${body}`;
-        } else{
-            errorMessage = error.message ? error.message : error.toString();
+    constructor(private ns: NotificationService, 
+                private injector: Injector,
+                private zone: NgZone){
+        super();
+    }
+
+    handleError(errorResponse: HttpErrorResponse | any){
+        const message = errorResponse.error.message;
+        
+        if(errorResponse instanceof HttpErrorResponse){
+            //zona criada para garantir que o angular executa os comandos abaixo
+            this.zone.run(() => {
+                switch(errorResponse.status){
+                    case 401:
+                        this.injector.get(LoginService).handleLogin();
+                        break;
+    
+                    case 403:
+                        this.ns.notify(message || 'Não autorizado.');
+                        break;
+    
+                    case 404:
+                        this.ns.notify(message || 'Recurso não encontrado.');
+                        break;
+                }
+            })
         }
-
-        console.log(errorMessage);
-        return Observable.throw(errorMessage);
+        super.handleError(errorResponse);
     }
 }
