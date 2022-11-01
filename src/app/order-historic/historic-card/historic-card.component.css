@@ -1,0 +1,15 @@
+.column-container{
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.column-header{
+    font-size: 1.8rem;
+    border-bottom: rgba(187, 184, 184, 0.527) 1px solid;
+    margin-bottom: 1rem;
+}
+
+.column-items{
+    margin: 0.5rem 0 0.5rem 0;
+}

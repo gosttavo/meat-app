@@ -27,6 +27,8 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import { LoginComponent } from './security/login/login.component';
 import { UserDetailComponent } from './header/user-detail/user-detail.component';
 import { AppErrorHandler } from './app.error-handler';
+import { OrderHistoricComponent } from './order-historic/order-historic.component';
+import { HistoricCardComponent } from './order-historic/historic-card/historic-card.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +46,8 @@ import { AppErrorHandler } from './app.error-handler';
     NotFoundComponent,
     LoginComponent,
     UserDetailComponent,
+    OrderHistoricComponent,
+    HistoricCardComponent
   ],
   imports: [
     BrowserModule,

@@ -20,7 +20,7 @@
           <tr [@row]="rowState" *ngFor="let item of items()">
             <th>({{item.quantity}}x) {{item.menuItem.name}}</th>
 
-            <td class="text-right">{{item.value() | currency: 'BRL' : true}}</td>
+            <td class="text-right">{{item.value() | currency: 'BRL' : 'symbol'}}</td>
             <td class="text-right">
               <a (click)="removeItem(item)" class="btn btn-sm dnager"><i class="fa fa-remove"></i></a>
             </td>
@@ -28,7 +28,7 @@
           <tr>
             <th>Total:</th>
 
-            <td class="text-right">{{total() | currency: 'BRL' : true}}</td>
+            <td class="text-right">{{total() | currency: 'BRL' : 'symbol'}}</td>
           </tr>
         </tbody></table>
       </div>
@@ -38,7 +38,7 @@
   <footer class="box-footer" *ngIf="items().length">
 
     <div class="pull-right">
-      <button (click)="clear()" type="button" class="btn btn-danger"><i class="fa fa-trash"></i> Limpar</button>
+      <button (click)="clear()" type="button" class="btn btn-danger"><i class="fa fa-trash"></i>Limpar</button>
       <a [routerLink]="['/order']" class="btn btn-success"><i class="fa fa-credit-card"></i> Fechar Pedido</a>
     </div>
 

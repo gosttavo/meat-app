@@ -15,7 +15,7 @@ const ROUTES: Routes = [
     declarations:[
         OrderComponent, 
         OrderItemsComponent, 
-        DeliveryCostsComponent,
+        DeliveryCostsComponent, 
     ],
     imports: [
         SharedModule,

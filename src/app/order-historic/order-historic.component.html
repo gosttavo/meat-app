@@ -1,0 +1,11 @@
+<header>
+  <h1>
+    Histórico de compras
+  </h1>
+</header>
+
+<main>
+  <div class="place-info-box" *ngFor="let orderHistoric of orderHistoric">
+    <mt-historic-card [orderHistoric]="orderHistoric"></mt-historic-card>
+  </div>
+</main>

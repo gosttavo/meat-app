@@ -3,8 +3,8 @@ import { CartItem } from "app/restaurant-detail/shopping-cart/cart-item.model";
 import { ShoppingCartService } from "app/restaurant-detail/shopping-cart/shopping-cart.service";
 
 import { HttpClient } from "@angular/common/http";
-import { Observable } from "rxjs/Observable";
-import 'rxjs/add/operator/map';
+import { Observable } from "rxjs";
+import { map } from 'rxjs/operators';
 
 import { Order, OrderItem } from "./order.model";
 import { MEAT_API } from "app/app.api";
@@ -46,7 +46,7 @@ export class OrderService{
         //1º -> URL para onde o objeto será mandado
         //2º -> objeto que será mandado -> mandado em formato string
         //3º -> Headers -> tipo de dado que será mandado -> content type
-        return this.http.post<Order>(`${MEAT_API}/orders`, order)    
-                        .map(order => order.id);
+        return this.http.post<Order>(`${MEAT_API}/orders`, order) 
+                        .pipe(map(order => order.id));            
     }
 }

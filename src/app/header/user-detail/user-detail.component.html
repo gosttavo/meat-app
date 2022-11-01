@@ -2,7 +2,16 @@
   <ul class="nav navbar-nav">
     <li class="user user-menu">
       <span *ngIf="isLoggedIn(); else notLoggedIn">
-        Olá, <strong>{{user().name}}</strong> | <a class="logout" (click)="logout()">Sair</a>
+        Olá, 
+        <strong>
+          <a [routerLink]="['/order-historic']">
+            {{user().name}}
+          </a>
+        </strong> 
+        | 
+        <a class="logout" (click)="logout()">
+          Sair
+        </a>
       </span>
       <ng-template #notLoggedIn>
         <a (click)="login()">Entrar</a>

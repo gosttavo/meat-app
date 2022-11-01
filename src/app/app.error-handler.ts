@@ -14,10 +14,11 @@ export class AppErrorHandler extends ErrorHandler{
         super();
     }
 
-    handleError(errorResponse: HttpErrorResponse | any){
-        const message = errorResponse.error.message;
-        
+    handleError(errorResponse: HttpErrorResponse | any){        
         if(errorResponse instanceof HttpErrorResponse){
+            const message = errorResponse.error.message;
+            console.log(message);
+            
             //zona criada para garantir que o angular executa os comandos abaixo
             this.zone.run(() => {
                 switch(errorResponse.status){
