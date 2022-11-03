@@ -29,6 +29,7 @@ import { UserDetailComponent } from './header/user-detail/user-detail.component'
 import { AppErrorHandler } from './app.error-handler';
 import { OrderHistoricComponent } from './order-historic/order-historic.component';
 import { HistoricCardComponent } from './order-historic/historic-card/historic-card.component';
+import { HistoricService } from './order-historic/order-historic.service';
 
 @NgModule({
   declarations: [
@@ -61,6 +62,7 @@ import { HistoricCardComponent } from './order-historic/historic-card/historic-c
   providers: [
     {provide: LOCALE_ID, useValue: 'pt'},
     {provide: ErrorHandler, useClass: AppErrorHandler}, 
+    HistoricService
   ],
   bootstrap: [AppComponent]
 })

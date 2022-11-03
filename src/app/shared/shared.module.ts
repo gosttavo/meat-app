@@ -36,7 +36,7 @@ import { AuthInterceptor } from "app/security/auth.interceptor";
         FormsModule, 
         ReactiveFormsModule, 
         CommonModule,
-        SnackbarComponent
+        SnackbarComponent,
     ]
 })
 export class SharedModule {

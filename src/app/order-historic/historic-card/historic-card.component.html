@@ -1,43 +1,36 @@
 <div class="column-container">
   <div class="column-header">
-    <span> 
-      <strong>29/10/2022</strong>
-    </span>
+    <h3>Resumo do pedido:</h3>
   </div>
   
-  <span class="column-items">
-    <h4>Você comprou: </h4>
-  </span>
-
-  <!--*ngFor-->
-  <span class="column-items">
-    <strong>{{orderHistoric.orderItems[0].menuId}} ({{orderHistoric.orderItems[0].quantity}}x) - R$ 50,00</strong>
-  </span>
-  <!--fim *ngFor-->
-  
-  <!--Dados do usuário-->
-  <span class="column-items">
-    <h4>Seus dados: </h4>
-  </span>
-
-  <span class="column-items">
-    <strong>E-mail: {{orderHistoric.email}}</strong>
-  </span>
-
-  <span class="column-items">
-    <strong>Endereço: {{orderHistoric.address}}</strong>
-  </span>
-  <!--fim Dados do usuário-->
-
-  <span class="column-items">
-    <h4>Pagamento: </h4>
-  </span>
-
-  <span class="column-items">
-    <strong>Preço total: R$ 150,00</strong>
-  </span>
-
-  <span class="column-items">
-    <strong>Forma de pagamento: {{orderHistoric.paymentOption}}</strong>
-  </span>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-4">
+        <h4>Você comprou:</h4>
+        <p *ngFor="let item of orderHistoric.orderItems; let i = index">
+          {{orderHistoric.orderItems[i].menuId}}
+          <span>
+            ({{orderHistoric.orderItems[i].quantity}}x)
+          </span>
+        </p> 
+      </div>
+      
+      <div class="col-sm-4">
+        <h4>Seus dados:</h4>
+        <p>E-mail: {{orderHistoric.email}}</p>
+        <p>Endereço: {{orderHistoric.address}}</p>
+        <p>Número: {{orderHistoric.number}}</p>
+      </div>
+    
+      <div class="col-sm-4">
+        <h4>Pagamento:</h4>
+        <p>Forma de pagamento: {{orderHistoric.paymentOption}}</p>
+        <p>Frete: R$ 8,00</p>
+        <p> - </p>
+        <h4>Valor total: R$ 100,00</h4>
+      </div>
+    </div>
+  </div>
 </div>
+
+

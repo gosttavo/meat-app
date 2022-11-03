@@ -9,7 +9,7 @@ export interface OrderHistoric {
     id: number,
 }
 
-interface OrderItems{
+export interface OrderItems{
     quantity: number,
     menuId: string
 }
