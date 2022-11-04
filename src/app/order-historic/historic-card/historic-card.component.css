@@ -3,15 +3,27 @@
 }
 
 .card-header{
-    border-bottom: 0.2rem solid rgba(211, 212, 212, 0.616);
+    border-bottom: 0.1rem solid rgba(211, 212, 212, 0.616);
     display: flex;
     align-items: center;
+    justify-content: space-between;
 }
 
 .card-footer{
-    border-top: 0.2rem solid rgba(211, 212, 212, 0.616);
+    border-top: 0.1rem solid rgba(211, 212, 212, 0.616);
 }
 
 .font-bold{
     font-weight: 600;
+}
+
+p{
+    font-size: medium;
+}
+
+.successful-card{
+    padding: .2rem;
+    background-color: rgb(16, 219, 16);
+    border-radius: 4px;
+    color: rgb(255, 255, 255);
 }
