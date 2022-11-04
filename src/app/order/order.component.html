@@ -157,7 +157,7 @@
         <div class="row">
           <div class="col-xs-12">
             <button 
-              (click)="checkOrder(orderForm  .value)" 
+              (click)="doConfirmOrder(orderForm?.value)" 
               href="order-summary.html" 
               [disabled]="!orderForm.valid || cartItems().length === 0" 
               class="btn btn-success pull-right"

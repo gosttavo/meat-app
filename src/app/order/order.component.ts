@@ -19,7 +19,6 @@ export class OrderComponent implements OnInit {
 
   numberPattern = /^[0-9]*$/
 
-  //propriedade que vai representar o formulário
   orderForm: FormGroup;
 
   delivery: number = 8;
@@ -37,28 +36,37 @@ export class OrderComponent implements OnInit {
               private formBuilder: FormBuilder) { } 
 
   ngOnInit() {
+    console.log('== init order ==', this.itemsValue())
     //criação do formulário -> Reactive Form
+    this.doCreateOrderForm();
+    this.doSetTotalValueForm(this.itemsValue())
+  }
+
+  //#region === FUNCOES DO FORMULARIO ===
+
+  doCreateOrderForm() {
     this.orderForm = this.formBuilder.group({
-      name: new FormControl('', {
-        validators: [Validators.required, Validators.minLength(5)]
-      }),
-      email: new FormControl('', {
-        validators: [Validators.required, Validators.pattern(this.emailPattern)]
-      }),
-      emailConfirmation: new FormControl('', {
-        validators: [Validators.required, Validators.pattern(this.emailPattern)]
-      }),
-      address: new FormControl('', {
-        validators: [Validators.required, Validators.minLength(5)]
-      }),
-      number: new FormControl('', {
-        validators: [Validators.required, Validators.pattern(this.numberPattern)]
-      }),
-      optionalAddress: new FormControl(''),
-      paymentOption: new FormControl('', {
-        validators: [Validators.required]
-      })
-    }, {validators: [OrderComponent.equalsTo], updateOn: 'change'})
+      name: this.formBuilder.control('', 
+        [Validators.required, Validators.minLength(5)]
+      ),
+      email: this.formBuilder.control('',
+        [Validators.required, Validators.pattern(this.emailPattern)]
+      ),
+      emailConfirmation: this.formBuilder.control('', 
+        [Validators.required, Validators.pattern(this.emailPattern)]
+      ),
+      address: this.formBuilder.control('', 
+        [Validators.required, Validators.minLength(5)]
+      ),
+      number: this.formBuilder.control('', 
+        [Validators.required, Validators.pattern(this.numberPattern)]
+      ),
+      optionalAddress: this.formBuilder.control(''),
+      paymentOption: this.formBuilder.control('', 
+       [Validators.required]
+      ),
+      totalOrder: this.formBuilder.control(0), 
+    }, {validators: OrderComponent.equalsTo})
   }
 
   //função para validar os campos de email
@@ -76,6 +84,23 @@ export class OrderComponent implements OnInit {
     return undefined;
   }
 
+  doClearOrderForm() {
+    if (this.orderForm) {
+      this.orderForm.reset();
+      this.doCreateOrderForm();
+    }
+  }
+
+  doSetOrderForm(order: any) {
+
+  }
+
+  doSetTotalValueForm(value: number) {
+    this.orderForm.controls.totalOrder.setValue(value);
+  }
+
+  //#endregion
+
   //propriedade que vai retonar o valor dos itens
   itemsValue(): number{
     return this.orderService.itemsValue();
@@ -85,8 +110,7 @@ export class OrderComponent implements OnInit {
     return this.orderService.cartItems();
   }
 
-  //métodos pra enviar os itens CartItem para o
-  //serviço para fazer as operações 
+  //#region === OPERAÇÕES DO CART ITEM === 
 
   icrQuantity(item: CartItem){
     this.orderService.icrQuantity(item);
@@ -100,14 +124,40 @@ export class OrderComponent implements OnInit {
     this.orderService.remove(item);
   }
 
+  //#endregion
+
   isOrderCompleted(): boolean{
     return this.orderId !== undefined;
   }
 
+  //#region === FUNCOES PARA SALVAR ===
+
+  doConfirmOrder(order: Order) {
+    if (!this.orderForm.valid) {
+      return
+    }
+
+    order.orderItems = this.doMapOrderItems();
+
+    this.checkOrder(order)
+  }
+
+  doMapOrderItems(): OrderItem[] {
+    return this.cartItems()
+      .map((item: CartItem) => new OrderItem(
+                                    item.quantity, 
+                                    item.menuItem.id, 
+                                    item.menuItem.price,
+                                    item.menuItem.name
+                                  ))
+  }
+
+  //#endregion
+
   checkOrder(order: Order){
     //mapear o array de cartitems e transformar em orderitems
-    order.orderItems = this.cartItems()
-     .map((item: CartItem) => new OrderItem(item.quantity, item.menuItem.id))
+    // order.orderItems = this.cartItems()
+    //  .map((item: CartItem) => new OrderItem(item.quantity, item.menuItem.id))
     this.orderService.checkOrder(order)
       .pipe(tap((orderId: string) => {
         this.orderId = orderId;

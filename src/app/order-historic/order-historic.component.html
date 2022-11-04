@@ -5,7 +5,7 @@
 </section>
 
 <section class="content">
-  <div class="place-info-box" *ngFor="let orderHistoric of orderHistoric">
+  <div class="place-info-box" [@historicAppeared]="historicState" *ngFor="let orderHistoric of orderHistoric">
     <mt-historic-card [orderHistoric]="orderHistoric"></mt-historic-card>
   </div>
 </section>

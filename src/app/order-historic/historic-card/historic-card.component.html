@@ -1,35 +1,38 @@
-<div class="column-container">
-  <div class="column-header">
-    <h3>Resumo do pedido:</h3>
+<div class="card bg-gradient-success">
+  <div class="card-header padding-one">
+    <h3 class="font-bold">Resumo do pedido:</h3>
   </div>
   
-  <div class="container">
+  <div class="card-body padding-one">
     <div class="row">
       <div class="col-sm-4">
-        <h4>Você comprou:</h4>
+        <h4 class="font-bold">Você comprou:</h4>
         <p *ngFor="let item of orderHistoric.orderItems; let i = index">
-          {{orderHistoric.orderItems[i].menuId}}
+          {{orderHistoric?.orderItems[i]?.name}}
           <span>
-            ({{orderHistoric.orderItems[i].quantity}}x)
+            ({{orderHistoric?.orderItems[i]?.quantity}}x)
           </span>
         </p> 
       </div>
       
       <div class="col-sm-4">
-        <h4>Seus dados:</h4>
-        <p>E-mail: {{orderHistoric.email}}</p>
-        <p>Endereço: {{orderHistoric.address}}</p>
-        <p>Número: {{orderHistoric.number}}</p>
+        <h4 class="font-bold">Seus dados:</h4>
+        <p>E-mail: {{orderHistoric?.email}}</p>
+        <p>Endereço: {{orderHistoric?.address}}</p>
+        <p>Número: {{orderHistoric?.number}}</p>
       </div>
     
       <div class="col-sm-4">
-        <h4>Pagamento:</h4>
-        <p>Forma de pagamento: {{orderHistoric.paymentOption}}</p>
+        <h4 class="font-bold">Pagamento:</h4>
+        <p>Forma de pagamento: {{orderHistoric?.paymentOption}}</p>
         <p>Frete: R$ 8,00</p>
         <p> - </p>
-        <h4>Valor total: R$ 100,00</h4>
       </div>
     </div>
+  </div>
+
+  <div class="card-footer padding-one">
+    <h4 class="font-bold">Valor total: {{orderHistoric?.totalOrder | currency: 'BRL' : 'symbol'}}</h4>
   </div>
 </div>
 

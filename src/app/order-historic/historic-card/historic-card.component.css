@@ -1,11 +1,17 @@
-.column-container{
-    display: flex;
-    flex-direction: column;
+.padding-one{
+    padding: 1rem;
 }
 
-.column-header{
-    padding: .0.8rem;
-    font-size: 2rem;
-    border-bottom: rgba(187, 184, 184, 0.527) 1px solid;
-    margin-bottom: 1rem;
+.card-header{
+    border-bottom: 0.2rem solid rgba(211, 212, 212, 0.616);
+    display: flex;
+    align-items: center;
+}
+
+.card-footer{
+    border-top: 0.2rem solid rgba(211, 212, 212, 0.616);
+}
+
+.font-bold{
+    font-weight: 600;
 }

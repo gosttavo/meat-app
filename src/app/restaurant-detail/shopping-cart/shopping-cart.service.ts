@@ -38,7 +38,7 @@ export class ShoppingCartService {
         item.quantity = item.quantity + 1;
     }
 
-    //rmeover items no carrinho
+    //remover items no carrinho
     removeItem(item: CartItem){
         //remover 1 item a partir do índice do item
         this.items.splice(this.items.indexOf(item), 1);

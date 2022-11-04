@@ -372,128 +372,35 @@
   ],
   "orders": [
     {
-      "name": "Gustavo",
+      "name": "gustavo neskovek goulart",
       "email": "gustavogoulart92@gmail.com",
       "emailConfirmation": "gustavogoulart92@gmail.com",
-      "address": "Rua bento gonçalves, bairro Cruzeiro do Sul",
-      "number": 59,
-      "optionalAddress": "prox ao sindisaúde",
-      "paymentOption": "DEB",
-      "orderItems": [
-        {
-          "quantity": 2,
-          "menuId": "capp"
-        }
-      ],
-      "id": 6
-    },
-    {
-      "name": "ventura",
-      "email": "gustavogoulart92@gmail.com",
-      "emailConfirmation": "gustavogoulart92@gmail.com",
-      "address": "ewewew",
+      "address": "12121",
       "number": 12,
-      "optionalAddress": "",
-      "paymentOption": "MON",
-      "orderItems": [
-        {
-          "quantity": 1,
-          "menuId": "sunday"
-        }
-      ],
-      "id": 7
-    },
-    {
-      "name": "gustavo neskovek goulart",
-      "email": "gustavo.goulart@harpabs.com.br",
-      "emailConfirmation": "gustavo.goulart@harpabs.com.br",
-      "address": "12345",
-      "number": 12,
-      "optionalAddress": "12",
-      "paymentOption": "MON",
-      "orderItems": [
-        {
-          "quantity": 2,
-          "menuId": "bread"
-        },
-        {
-          "quantity": 1,
-          "menuId": "donut"
-        }
-      ],
-      "id": 8
-    },
-    {
-      "name": "gustavo neskovek goulart",
-      "email": "gustavogoulart92@gmail.com",
-      "emailConfirmation": "gustavogoulart92@gmail.com",
-      "address": "12345",
-      "number": 121,
-      "optionalAddress": "12121",
-      "paymentOption": "DEB",
-      "orderItems": [
-        {
-          "quantity": 1,
-          "menuId": "cup-cake"
-        },
-        {
-          "quantity": 1,
-          "menuId": "donut"
-        }
-      ],
-      "id": 9
-    },
-    {
-      "name": "gustavo neskovek goulart",
-      "email": "gustavogoulart92@gmail.com",
-      "emailConfirmation": "gustavogoulart92@gmail.com",
-      "address": "121313",
-      "number": 3131,
-      "optionalAddress": "3131",
-      "paymentOption": "DEB",
-      "orderItems": [
-        {
-          "quantity": 1,
-          "menuId": "cup-cake"
-        },
-        {
-          "quantity": 1,
-          "menuId": "donut"
-        }
-      ],
-      "id": 10
-    },
-    {
-      "name": "gustavo neskovek goulart",
-      "email": "gustavogoulart92@gmail.com",
-      "emailConfirmation": "gustavogoulart92@gmail.com",
-      "address": "121221",
-      "number": 2121,
       "optionalAddress": "teste",
       "paymentOption": "MON",
+      "totalOrder": 34,
       "orderItems": [
         {
           "quantity": 1,
-          "menuId": "capp"
-        }
-      ],
-      "id": 11
-    },
-    {
-      "name": "Gustavo",
-      "email": "gustavogoulart92@gmail.com",
-      "emailConfirmation": "gustavogoulart92@gmail.com",
-      "address": "123456",
-      "number": 14562,
-      "optionalAddress": "teste",
-      "paymentOption": "CRED",
-      "orderItems": [
+          "menuId": "coke.png",
+          "valueItem": 4.5,
+          "name": "Refrigerante"
+        },
+        {
+          "quantity": 2,
+          "menuId": "fries",
+          "valueItem": 5.5,
+          "name": "Batatas Fritas"
+        },
         {
           "quantity": 1,
-          "menuId": "cup-cake"
+          "menuId": "burger",
+          "valueItem": 18.5,
+          "name": "Classic Burger"
         }
       ],
-      "id": 12
+      "id": 1
     }
   ]
 }
