@@ -15,61 +15,29 @@
 
             </div>
           </div>  
-          
+
           <div class="row">
-            <div class="col-xs-12 col-sm-9">
-              <p class="lead">Seus Dados:</p>
-            </div>
-            <div class="col-xs-12 col-sm-3">
-              <span 
-                class="help-block pull-right has-error-block"                   
-                *ngIf="orderForm.hasError('emailsNotMatch')">
-                  <i class="fa fa-remove"></i> 
-                  E-mails não coincidem
-              </span>
+            <div class="col-sm-6 col-xs-12">
+              <p class="lead">
+                <span>
+                  Nome:
+                </span>
+                {{user().name}}
+              </p>
             </div>
 
-            <div class="col-sm-4 col-xs-12">
-              <mt-input-container 
-                errorMessage="Campo obrigatório" 
-                label="Nome">
-                <input formControlName="name" 
-                       minlength="5" 
-                       placeholder="Nome"
-                       autocomplete="off" 
-                       class="form-control">
-              </mt-input-container>
-            </div>
-
-            <div class="col-sm-4 col-xs-12">
-              <mt-input-container 
-                errorMessage="E-mail inválido" 
-                label="Email">
-                <input formControlName="email" 
-                       minlength="5" 
-                       placeholder="E-mail"
-                       autocomplete="off" 
-                       class="form-control">
-              </mt-input-container>
-            </div>
-
-            
-            <div class="col-sm-4 col-xs-12">
-              <mt-input-container 
-                errorMessage="E-mail inválido" 
-                label="EmailConfirmation">
-                <input formControlName="emailConfirmation" 
-                       minlength="5" 
-                       placeholder="Confirmação de e-mail"
-                       autocomplete="off" 
-                       class="form-control">
-              </mt-input-container>
+            <div class="col-sm-6 col-xs-12">
+              <p class="lead">
+                <span>
+                  E-mail:
+                </span>
+                {{user().email}}
+              </p>
             </div>
           </div>
 
           <!--Endereço-->
           <div class="row">
-
             <div class="col-xs-12">
               <p class="lead">
                 Endereço de Entrega:
@@ -108,13 +76,11 @@
                        class="form-control">
               </mt-input-container>
             </div>
-
           </div>
           <!--Fim do endereço-->
 
           <!--Tabela de items-->
           <div class="row">
-
             <div class="col-xs-12">
               <p class="lead">Itens do Pedido:</p>
             </div>
@@ -125,12 +91,10 @@
               (dcrQuantity)="dcrQuantity($event)"
               (remove)="remove($event)"
             ></mt-order-items>
-
           </div>
           <!--Fim tabela de items-->
 
           <div class="row">
-
             <div class="col-sm-6 col-xs-12">
               <p class="lead">Formas de Pagamento:</p>
 
@@ -150,7 +114,6 @@
                 [itemsValue]="itemsValue()"
               ></mt-delivery-costs>
             </div>
-
           </div>
         </form>
 

@@ -16,4 +16,17 @@ export class HistoricCardComponent implements OnInit {
   ngOnInit() {
   }
 
+  doFormatPaymentOption(paymentOption){
+    if(paymentOption === 'MON'){
+      this.orderHistoric.paymentOption = 'Dinheiro';
+    }
+    else if(paymentOption === 'DEB'){
+      this.orderHistoric.paymentOption = 'Débito';
+    }
+    else if(paymentOption === 'CRED'){
+      this.orderHistoric.paymentOption = 'Crédito';
+    }
+    return this.orderHistoric.paymentOption;
+  }
+
 }

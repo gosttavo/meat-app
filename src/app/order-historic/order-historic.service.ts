@@ -9,6 +9,8 @@ import { OrderHistoric } from "./historic-card/order-historic.model";
 @Injectable()
 export class HistoricService {
 
+    historic: OrderHistoric[];
+
     constructor(private http: HttpClient){}
 
     orderHistoric(): Observable<OrderHistoric[]>{

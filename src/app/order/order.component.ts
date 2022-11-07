@@ -4,6 +4,8 @@ import { FormGroup, FormBuilder, Validators, AbstractControl, FormControl } from
 import { Router } from '@angular/router';
 
 import { CartItem } from 'app/restaurant-detail/shopping-cart/cart-item.model';
+import { LoginService } from 'app/security/login/login.service';
+import { User } from 'app/security/login/user.model';
 import { RadioOption } from 'app/shared/radio/radio-option.model';
 import { tap } from 'rxjs/operators';
 import { Order, OrderItem } from './order.model';
@@ -33,7 +35,8 @@ export class OrderComponent implements OnInit {
 
   constructor(private orderService: OrderService, 
               private router: Router,
-              private formBuilder: FormBuilder) { } 
+              private formBuilder: FormBuilder,
+              private loginService: LoginService) { } 
 
   ngOnInit() {
     console.log('== init order ==', this.itemsValue())
@@ -46,15 +49,6 @@ export class OrderComponent implements OnInit {
 
   doCreateOrderForm() {
     this.orderForm = this.formBuilder.group({
-      name: this.formBuilder.control('', 
-        [Validators.required, Validators.minLength(5)]
-      ),
-      email: this.formBuilder.control('',
-        [Validators.required, Validators.pattern(this.emailPattern)]
-      ),
-      emailConfirmation: this.formBuilder.control('', 
-        [Validators.required, Validators.pattern(this.emailPattern)]
-      ),
       address: this.formBuilder.control('', 
         [Validators.required, Validators.minLength(5)]
       ),
@@ -89,10 +83,6 @@ export class OrderComponent implements OnInit {
       this.orderForm.reset();
       this.doCreateOrderForm();
     }
-  }
-
-  doSetOrderForm(order: any) {
-
   }
 
   doSetTotalValueForm(value: number) {
@@ -168,6 +158,10 @@ export class OrderComponent implements OnInit {
         //limpar o carrinho
         this.orderService.clear();
       })
+  }
+
+  user(): User {
+    return this.loginService.user;
   }
 
 }

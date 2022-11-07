@@ -4,8 +4,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NotificationService } from 'app/shared/messages/notification.service';
 import { LoginService } from './login.service';
 
-import { User } from './user.model';
-
 @Component({
   selector: 'mt-login',
   templateUrl: './login.component.html',
@@ -40,5 +38,4 @@ export class LoginComponent implements OnInit {
                           this.router.navigate([atob(this.navigateTo)]);
                         }) 
   }
-
 }

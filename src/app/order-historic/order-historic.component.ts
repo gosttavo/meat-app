@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { OrderHistoric } from './historic-card/order-historic.model';
 import { HistoricService } from './order-historic.service';
 
 import { animate, state, style, transition, trigger } from '@angular/animations';
+
+import { User } from 'app/security/login/user.model';
+import { OrderHistoric } from './historic-card/order-historic.model';
+import { LoginService } from 'app/security/login/login.service';
 
 @Component({
   selector: 'mt-order-historic',
@@ -22,8 +25,10 @@ export class OrderHistoricComponent implements OnInit {
   orderHistoric: OrderHistoric[];
 
   historicState = 'ready';
-
-  constructor(private historicService: HistoricService) { }
+  constructor(
+      private historicService: HistoricService,
+      private loginService: LoginService,
+    ) { }
 
   ngOnInit() {
     this.historicInit();
@@ -34,4 +39,8 @@ export class OrderHistoricComponent implements OnInit {
     .subscribe(orderHistoric => this.orderHistoric = orderHistoric);
   }
 
+  doGetUser(): User {
+    return this.loginService.user;
+  }
 }
+

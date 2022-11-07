@@ -281,3 +281,11 @@ body {
 .search-value{
   margin-right: 12px;
 }
+
+/**Spin Center**/
+.spin-center{
+  position: absolute;
+  display: block;
+  margin-left: 48%;
+  margin-top: 300px;
+}

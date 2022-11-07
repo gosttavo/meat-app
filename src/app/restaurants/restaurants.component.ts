@@ -6,7 +6,7 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 
-import { Observable, from } from 'rxjs';
+import { from } from 'rxjs';
 import { switchMap, tap, debounceTime, distinctUntilChanged, catchError } from 'rxjs/operators';
 
 @Component({
@@ -37,6 +37,7 @@ export class RestaurantsComponent implements OnInit {
   searchForm: FormGroup;
   //vai ouvir valores digitados
   searchControl: FormControl;
+  loginService: any;
 
   //construtor vai receber o serviço
   constructor(private restaurantsService: RestaurantService,
