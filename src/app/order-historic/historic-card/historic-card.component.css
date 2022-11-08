@@ -21,13 +21,6 @@ p{
     font-size: medium;
 }
 
-.successful-card{
-    padding: .2rem;
-    background-color: rgb(16, 219, 16);
-    border-radius: 4px;
-    color: rgb(255, 255, 255);
-}
-
 .text-red{
     font-size: bold;
     color: #dd4b39;

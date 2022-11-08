@@ -6,13 +6,17 @@ import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { map } from 'rxjs/operators';
 
-import { Order, OrderItem } from "./order.model";
+import { Order } from "./order.model";
 import { MEAT_API } from "app/app.api";
+import { OrderHistoric } from "app/order-historic/historic-card/order-historic.model";
 
 @Injectable()
 export class OrderService{
-    constructor(private cartService: ShoppingCartService, 
-                private http: HttpClient){}
+
+    constructor(
+        private cartService: ShoppingCartService, 
+        private http: HttpClient
+    ){}
 
     itemsValue(): number{
         return this.cartService.total();
@@ -43,9 +47,6 @@ export class OrderService{
     //chamada HTTP -> finalizar a compra
     checkOrder(order: Order): Observable<string>{
         //3 parâmetros -> post
-        //1º -> URL para onde o objeto será mandado
-        //2º -> objeto que será mandado -> mandado em formato string
-        //3º -> Headers -> tipo de dado que será mandado -> content type
         return this.http.post<Order>(`${MEAT_API}/orders`, order) 
                         .pipe(map(order => order.id));            
     }

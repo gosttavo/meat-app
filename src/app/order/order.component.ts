@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, AbstractControl, FormControl } from "@angular/forms";
+import { FormGroup, Validators, FormControl } from "@angular/forms";
 
 import { Router } from '@angular/router';
 
@@ -35,7 +35,6 @@ export class OrderComponent implements OnInit {
 
   constructor(private orderService: OrderService, 
               private router: Router,
-              private formBuilder: FormBuilder,
               private loginService: LoginService) { } 
 
   ngOnInit() {
@@ -48,35 +47,39 @@ export class OrderComponent implements OnInit {
   //#region === FUNCOES DO FORMULARIO ===
 
   doCreateOrderForm() {
-    this.orderForm = this.formBuilder.group({
-      address: this.formBuilder.control('', 
-        [Validators.required, Validators.minLength(5)]
+    this.orderForm = new FormGroup({
+      name: new FormControl(this.user().name),
+      email: new FormControl(this.user().email),
+      address: new FormControl('', {
+        validators: [Validators.required, Validators.minLength(5)]
+      }
       ),
-      number: this.formBuilder.control('', 
-        [Validators.required, Validators.pattern(this.numberPattern)]
+      number: new FormControl('',{
+        validators: [Validators.required, Validators.pattern(this.numberPattern)]
+      } 
       ),
-      optionalAddress: this.formBuilder.control(''),
-      paymentOption: this.formBuilder.control('', 
+      optionalAddress: new FormControl(''),
+      paymentOption: new FormControl('', 
        [Validators.required]
       ),
-      totalOrder: this.formBuilder.control(0), 
-    }, {validators: OrderComponent.equalsTo})
+      totalOrder: new FormControl(0), 
+    })
   }
 
-  //função para validar os campos de email
-  static equalsTo(group: AbstractControl): {[key: string]: boolean} {
-    const email = group.get('email'); //vai pegar a referencia do input
-    const emailConfirmation = group.get('emailConfirmation'); //vai pegar a referencia do input
+  // //função para validar os campos de email
+  // static equalsTo(group: AbstractControl): {[key: string]: boolean} {
+  //   const email = group.get('email'); //vai pegar a referencia do input
+  //   const emailConfirmation = group.get('emailConfirmation'); //vai pegar a referencia do input
 
-    if(!email || !emailConfirmation){ //se não existirem retorna undefined
-      return undefined;
-    }
+  //   if(!email || !emailConfirmation){ //se não existirem retorna undefined
+  //     return undefined;
+  //   }
 
-    if(email.value !== emailConfirmation.value){ //se os valores são diferentes retorna uma chave
-      return {emailsNotMatch: true};
-    }
-    return undefined;
-  }
+  //   if(email.value !== emailConfirmation.value){ //se os valores são diferentes retorna uma chave
+  //     return {emailsNotMatch: true};
+  //   }
+  //   return undefined;
+  // }
 
   doClearOrderForm() {
     if (this.orderForm) {
