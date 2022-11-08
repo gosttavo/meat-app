@@ -5,25 +5,15 @@
 </section>
 
 <section class="content">
-    <div  
-      [@historicAppeared]="historicState" 
-      *ngFor="let orderHistoric of orderHistoric"
-    >
+    <div *ngFor="let orderHistoric of orderHistoric">
       <div 
         *ngIf="orderHistoric?.email === doGetUser().email"
-        class="place-info-box"
+        class="place-info-box" 
+        [@historicAppeared]="historicState" 
       >
-          <mt-historic-card 
+        <mt-historic-card 
           [orderHistoric]="orderHistoric">
         </mt-historic-card>
       </div>
     </div>
-
-  <div *ngIf="orderHistoric?.length === 0">
-    <p class="lead text-center">
-      Você ainda não efetuou nenhuma compra. 
-      <br>
-      Clique <a [routerLink]="['/restaurants']">aqui</a> para começar a comprar!
-    </p>
-  </div>
 </section>
