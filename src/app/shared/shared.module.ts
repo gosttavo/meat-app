@@ -22,7 +22,7 @@ import { AuthInterceptor } from "app/security/auth.interceptor";
         InputComponent, 
         RadioComponent, 
         RatingComponent, 
-        SnackbarComponent
+        SnackbarComponent, 
     ],
     imports: [
         FormsModule, 

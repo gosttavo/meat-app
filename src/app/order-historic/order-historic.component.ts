@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { catchError, debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
+import { from } from 'rxjs';
+import { FormControl } from '@angular/forms';
 
 import { HistoricService } from './order-historic.service';
 import { LoginService } from 'app/security/login/login.service';
@@ -18,6 +21,18 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
         style({opacity: 0, transform: 'translateY(-20px)'}),
         animate('300ms 0s ease-in')
       ])
+    ]),
+    trigger('toggleSearch', [
+      state('hidden', style({
+        opacity: 0,
+        "max-height": "0px"
+      })),
+      state('visible', style({
+        opacity: 1,
+        "max-height": "70px",
+        "margin-top": "20px"
+      })),
+      transition('* => *', animate('250ms 0s ease-in-out'))
     ])
   ]
 })
@@ -26,6 +41,9 @@ export class OrderHistoricComponent implements OnInit {
   orderHistoric: OrderHistoric[];
 
   historicState = 'ready';
+  toggleState = 'hidden';
+
+  searchControl: FormControl;
 
   constructor(
       private historicService: HistoricService,
@@ -34,6 +52,8 @@ export class OrderHistoricComponent implements OnInit {
 
   ngOnInit() {
     this.historicInit();
+    this.doCreateSearchBar();
+    this.doReadValueChanges();
   }
   
   historicInit(){
@@ -44,5 +64,26 @@ export class OrderHistoricComponent implements OnInit {
   doGetUser(): User {
     return this.loginService.user;
   }
+
+  doCreateSearchBar() {
+    this.searchControl = new FormControl('');
+  }
+
+  doReadValueChanges() {
+    this.searchControl.valueChanges
+    .pipe(
+      debounceTime(500), 
+      distinctUntilChanged(), 
+      switchMap(searchTerm => this.historicService
+        .orderHistoric(searchTerm)
+        .pipe(catchError(error => from([]))))
+    )
+    .subscribe(orderHistoric => this.orderHistoric = orderHistoric);
+  }
+
+  toggleAppear() {
+    this.toggleState = this.toggleState === 'hidden' ? 'visible' : 'hidden';
+  }
+
 }
 

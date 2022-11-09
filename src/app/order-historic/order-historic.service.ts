@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 
 import { MEAT_API } from "app/app.api";
 
@@ -13,7 +13,13 @@ export class HistoricService {
 
     constructor(private http: HttpClient){}
 
-    orderHistoric(): Observable<OrderHistoric[]>{
-      return this.http.get<OrderHistoric[]>(`${MEAT_API}/orders`);
+    orderHistoric(search?: string): Observable<OrderHistoric[]>{
+      let params: HttpParams = undefined;
+
+      if(search){
+          params = new HttpParams().set('q', search);
+      }
+
+      return this.http.get<OrderHistoric[]>(`${MEAT_API}/orders`, {params: params});
     }
 }
