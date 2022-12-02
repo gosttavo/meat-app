@@ -8,6 +8,9 @@ class Order{
         public delivery: number,
         public totalOrder: number,
         public id?: string,
+        public restaurantId?: string,
+        public userId?: string
+
         ){}
 }
 

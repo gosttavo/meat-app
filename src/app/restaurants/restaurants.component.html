@@ -1,7 +1,7 @@
 <section class="content-header">
   <h1>
-    Todos os Restaurantes 
-    
+    Todos os Restaurantes
+
     <a class="search-link pull-right" (click)="toggleAppear()">
       <span *ngIf="iptSearch.value">
         <small class="search-value">
@@ -12,16 +12,15 @@
     </a>
   </h1>
 
-    <!--barra de busca-->
+  <!--barra de busca-->
   <div class="row">
     <div class="col-xs-12 search-bar" [@toggleSearch]="toggleState">
-        <div class="form-group">
-          <input #iptSearch
-            type="text" 
-            class="form-control" 
-            placeholder="O que você está procurando?"
-            [formControl]="searchControl">
-        </div>
+      <div class="form-group">
+        <input #iptSearch type="text" 
+               class="form-control" 
+               placeholder="O que você está procurando?"
+               [formControl]="searchControl">
+      </div>
     </div>
   </div>
 
@@ -30,7 +29,7 @@
 <section class="content">
 
   <div class="row">
-    <div *ngFor="let restaurant of restaurants" class="col-sm-6 col-xs-12">
+    <div *ngFor="let restaurant of restaurants?.items" class="col-sm-6 col-xs-12">
       <mt-restaurant [restaurant]="restaurant"></mt-restaurant>
     </div>
 
@@ -39,6 +38,16 @@
         Sem resultados encontrados! <br> Por favor, refaça a pesquisa.
       </p>
     </div>
+  </div>
+
+  <div class="my-pagination">
+    <button (click)="loadPreviousPage()" [disabled]="verifyPreviousPage()">
+      «
+    </button>
+    <span>{{restaurants?._links?.self}}</span>
+    <button (click)="loadNextPage()">
+      »
+    </button>
   </div>
 
 </section>

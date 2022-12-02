@@ -6,5 +6,8 @@ export interface Restaurant {
     rating: number,
     imagePath: string,
     about?: string,
-    hours?: string
+    hours?: string,
+    previous?: string,
+    next?: string,
+    self: string
 }

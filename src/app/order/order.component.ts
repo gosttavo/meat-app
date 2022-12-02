@@ -66,21 +66,6 @@ export class OrderComponent implements OnInit {
     })
   }
 
-  // //função para validar os campos de email
-  // static equalsTo(group: AbstractControl): {[key: string]: boolean} {
-  //   const email = group.get('email'); //vai pegar a referencia do input
-  //   const emailConfirmation = group.get('emailConfirmation'); //vai pegar a referencia do input
-
-  //   if(!email || !emailConfirmation){ //se não existirem retorna undefined
-  //     return undefined;
-  //   }
-
-  //   if(email.value !== emailConfirmation.value){ //se os valores são diferentes retorna uma chave
-  //     return {emailsNotMatch: true};
-  //   }
-  //   return undefined;
-  // }
-
   doClearOrderForm() {
     if (this.orderForm) {
       this.orderForm.reset();
@@ -139,7 +124,7 @@ export class OrderComponent implements OnInit {
     return this.cartItems()
       .map((item: CartItem) => new OrderItem(
                                     item.quantity, 
-                                    item.menuItem.id, 
+                                    item.menuItem._id, 
                                     item.menuItem.price,
                                     item.menuItem.name
                                   ))

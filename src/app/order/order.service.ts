@@ -8,7 +8,6 @@ import { map } from 'rxjs/operators';
 
 import { Order } from "./order.model";
 import { MEAT_API } from "app/app.api";
-import { OrderHistoric } from "app/order-historic/historic-card/order-historic.model";
 
 @Injectable()
 export class OrderService{

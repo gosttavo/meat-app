@@ -27,7 +27,7 @@
 </section>
 
 <section class="content">
-    <div *ngFor="let orderHistoric of orderHistoric">
+    <div *ngFor="let orderHistoric of orderHistoric?.items">
       <div 
         *ngIf="orderHistoric?.email === doGetUser().email"
         class="place-info-box" 

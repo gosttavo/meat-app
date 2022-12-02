@@ -16,13 +16,15 @@ import { LoggedInGuard } from "app/security/loggedin.guard";
 import { LeaveOrderGuard } from "app/order/leave-order.guard";
 import { HTTP_INTERCEPTORS } from "@angular/common/http";
 import { AuthInterceptor } from "app/security/auth.interceptor";
+import { SignUpService } from "app/security/sign-up/sign-up.service";
+import { ReviewService } from "app/restaurant-detail/reviews/reviews.service";
 
 @NgModule({
     declarations: [
         InputComponent, 
         RadioComponent, 
         RatingComponent, 
-        SnackbarComponent, 
+        SnackbarComponent
     ],
     imports: [
         FormsModule, 
@@ -36,7 +38,7 @@ import { AuthInterceptor } from "app/security/auth.interceptor";
         FormsModule, 
         ReactiveFormsModule, 
         CommonModule,
-        SnackbarComponent,
+        SnackbarComponent
     ]
 })
 export class SharedModule {
@@ -52,6 +54,8 @@ export class SharedModule {
                 LoginService,
                 LoggedInGuard,
                 LeaveOrderGuard,
+                SignUpService,
+                ReviewService,
                 {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}
             ]
         }

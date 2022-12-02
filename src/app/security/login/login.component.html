@@ -1,4 +1,4 @@
-<section class="content login-content" style="margin: 10% auto">
+<section class="content login-content" style="margin: 5% auto">
   <div class="login-logo">
        <b>MEAT</b> | Login
   </div>
@@ -8,16 +8,28 @@
     </p>
 
     <form [formGroup]="loginForm">
-
+      <label for="email">E-mail:</label>
       <mt-input-container [showTip]="false">
-            <input type="text" formControlName="email" class="form-control" placeholder="Email">
-            <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+        <input type="text" 
+                formControlName="email" 
+                class="form-control" 
+                placeholder="Email">
+        <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
       </mt-input-container>
 
+      <label for="password">Password:</label>
       <mt-input-container [showTip]="false">
-        <input type="password" formControlName="password" class="form-control" placeholder="Password">
+        <input type="password" 
+               formControlName="password" 
+               class="form-control" 
+               placeholder="Password"
+               autocomplete="on">
         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
       </mt-input-container>
+
+      <div>
+        <span>Não possui uma conta? <a [routerLink]="['/sign-up']">Cadastre-se</a>.</span>
+      </div>
 
       <div class="row">
         <div class="col-xs-offset-8 col-xs-4">

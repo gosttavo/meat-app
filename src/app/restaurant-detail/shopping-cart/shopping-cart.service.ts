@@ -22,7 +22,7 @@ export class ShoppingCartService {
     //adicionar items no carrinho
     addItem(item: MenuItem){
         //vai comparar se o ID do item que estou recebendo p/ parâmetro já existe
-        let foundItem = this.items.find((mItem) => mItem.menuItem.id === item.id);
+        let foundItem = this.items.find((mItem) => mItem.menuItem._id === item._id);
 
         if(foundItem){
             //se encontrar, soma a quantidade

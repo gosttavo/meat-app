@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 
 import { from } from 'rxjs';
@@ -28,45 +28,108 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
   ]
 })
 export class RestaurantsComponent implements OnInit {
-  
-  restaurants: Restaurant[];
-  loginService: any;
 
+  //#region === VARIÁVEIS ===
+
+  @Input() restaurants: Restaurant[];
+  @Input() restaurant: Restaurant;
   toggleState = 'hidden';
+
+  currentPage: number = 1;
+  pageSize: number = 8;
+
+  loginService: any;
 
   searchControl: FormControl;//vai ouvir valores digitados
 
-  constructor(
-    private restaurantsService: RestaurantService
-    ) { }
+  router: any;
+
+  actualPage: number;
+
+  //#endregion
+
+  constructor(private restaurantsService: RestaurantService) { }
 
   ngOnInit() {
-    //subscribe para fazer requisição http
-    this.restaurantsService.restaurants()
-    .subscribe(restaurants => this.restaurants = restaurants);
-
+    this.loadRestaurants();
     this.doCreateSearchBar();
     this.doReadValueChanges();
   }
+
+  //#region === LOAD FUNCTIONS ===
+
+  loadRestaurants() {
+    this.currentPage = 1;
+    this.doGetRestaurants();
+  }
+
+  loadFilters(currentPage?, searchTerm?) {
+    let filters = {page: currentPage, search: searchTerm};
+
+    filters['page'] = currentPage;
+    filters['search'] = searchTerm;
+
+    this.doGetRestaurants(filters);
+  }
+
+  verifyPreviousPage(): boolean {
+    let verify = false;
+    if(this.currentPage === 1){
+      verify = true;
+    }
+    
+    return verify;
+  }
+
+  verifyPage(){
+    console.log(this.restaurantsService.restaurants)
+  }
+
+  loadNextPage() {
+    this.currentPage++;
+    this.loadFilters(this.currentPage);
+  }
+
+  loadPreviousPage() {
+    this.currentPage--;
+    this.loadFilters(this.currentPage);
+  }
+
+  //#endregion === Fim LOAD FUNCTIONS ===
+
+  //#region === FUNÇÕES SEARCH BAR ===
 
   doCreateSearchBar() {
     this.searchControl = new FormControl('');
   }
 
-    doReadValueChanges() {
+  doReadValueChanges() {
     this.searchControl.valueChanges
-    .pipe(
-      debounceTime(500), 
-      distinctUntilChanged(), 
-      switchMap(searchTerm => this.restaurantsService
-        .restaurants(searchTerm)
-        .pipe(catchError(error => from([]))))
-    )
-    .subscribe(restaurants => this.restaurants = restaurants);
+      .pipe(
+        debounceTime(500),
+        distinctUntilChanged(),
+        switchMap(searchTerm => this.restaurantsService
+          .restaurants({search: searchTerm})
+          .pipe(catchError(error => from([]))))
+      )
+      .subscribe(restaurants => this.restaurants = restaurants);
+  }
+
+  doGetRestaurants(filters?: any) {
+    this.restaurantsService
+      .restaurants(filters)
+      .subscribe(restaurants => {
+        console.log('=== load next ===', restaurants)
+        this.restaurants = restaurants
+      }, resError => {
+        console.log('=== erro ===', resError)
+      });
   }
 
   toggleAppear() {
     this.toggleState = this.toggleState === 'hidden' ? 'visible' : 'hidden';
   }
+
+  //#endregion
 
 }

@@ -8,7 +8,7 @@ import { OrderItemsComponent } from "./order-items/order-items.component";
 import { OrderComponent } from "./order.component";
 
 const ROUTES: Routes = [
-    {path: '', component: OrderComponent, canDeactivate: [LeaveOrderGuard]}
+    {path: '', component: OrderComponent}
 ]
 
 @NgModule({

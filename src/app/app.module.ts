@@ -30,6 +30,9 @@ import { AppErrorHandler } from './app.error-handler';
 import { OrderHistoricComponent } from './order-historic/order-historic.component';
 import { HistoricCardComponent } from './order-historic/historic-card/historic-card.component';
 import { HistoricService } from './order-historic/order-historic.service';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { SignUpComponent } from './security/sign-up/sign-up.component';
+import { ReviewChatComponent } from './restaurant-detail/review-chat/review-chat.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +51,9 @@ import { HistoricService } from './order-historic/order-historic.service';
     LoginComponent,
     UserDetailComponent,
     OrderHistoricComponent,
-    HistoricCardComponent
+    HistoricCardComponent,
+    SignUpComponent,
+    ReviewChatComponent
   ],
   imports: [
     BrowserModule,
@@ -58,6 +63,7 @@ import { HistoricService } from './order-historic/order-historic.service';
     ReactiveFormsModule,
     SharedModule.forRoot(),
     BrowserAnimationsModule,
+    NgxPaginationModule
   ],
   providers: [
     {provide: LOCALE_ID, useValue: 'pt'},

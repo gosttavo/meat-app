@@ -1,0 +1,82 @@
+<section class="content login-content" style="margin: 3% auto">
+  <div class="login-logo">
+    <b>MEAT</b> | Sign Up
+  </div>
+
+  <div class="col-xs-12 col-sm-offset-3 col-sm-6 login-box-body">
+    <p class="login-box-msg">
+      Cadastre-se para começar a fazer pedidos!
+    </p>
+
+    <form [formGroup]="signForm">
+
+      <input type="text" formControlName="profiles" disabled *ngIf="false">
+      <!--name-->
+      <label for="name">Nome:</label>
+      <mt-input-container [showTip]="false">
+        <input type="text" 
+               formControlName="name" 
+               class="form-control" 
+               placeholder="Seu nome">
+      </mt-input-container>
+
+      <!--email-->
+      <label for="email">E-mail:</label>
+      <mt-input-container [showTip]="false">
+        <input type="text" 
+               formControlName="email" 
+               class="form-control" 
+               placeholder="Seu e-mail">
+      </mt-input-container>
+
+      <!--password-->
+      <label for="password">Senha:</label>
+      <mt-input-container [showTip]="false">
+        <input type="password" 
+               formControlName="password" 
+               class="form-control" 
+               placeholder="Sua senha"
+               autocomplete="on">
+      </mt-input-container>
+
+      <!--confirm password-->
+      <label for="confirm-pwd">Confirmar senha:</label>
+      <mt-input-container [showTip]="false">
+        <input type="password" 
+               formControlName="confirmPwd" 
+               class="form-control" 
+               placeholder="Confirme sua senha">
+      </mt-input-container>
+
+      <!--cpf-->
+      <label for="cpf">CPF:</label>
+      <mt-input-container [showTip]="false">
+        <input type="text" 
+               formControlName="cpf" 
+               class="form-control" 
+               placeholder="Seu CPF">
+      </mt-input-container>
+
+      <!--gender-->
+      <label for="gender">Gênero:</label>
+      <select class="form-control" formControlName="gender">
+        <option *ngFor="let gender of genders"
+                [ngValue]="gender.value">
+          {{gender.label}}
+        </option>
+      </select>
+
+      <div class="row btn-top">
+        <div class="col-xs-12">
+          <button (click)="signUp()"
+                  type="submit" 
+                  class="btn btn-primary btn-block btn-flat"
+                  [disabled]="signForm.invalid">
+            Cadastrar
+          </button>
+        </div>
+      </div>
+
+    </form>
+  </div>
+</section>

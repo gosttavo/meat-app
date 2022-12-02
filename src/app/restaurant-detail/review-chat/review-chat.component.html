@@ -1,0 +1,46 @@
+<div class="btn-modal">
+  <button class="btn btn-default" (click)="toggleAppear()">Avaliar</button>
+</div>
+
+<!--modal-->
+<div class="modal-dialog modal-position search-bar" [@toggleChat]="toggleState">
+
+
+  <form [formGroup]="chatForm">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true" (click)="toggleAppear()">×</span>
+        </button>
+
+        <h4 class="modal-title">
+          Escrever avaliação 
+        </h4>
+      </div>
+
+      <div class="modal-body">
+        <mt-input-container label="commentary" [showTip]="false">
+          <input type="text" class="full-width modal-settings" 
+          formControlName="comment" placeholder="Deixe sua opinião...">
+        </mt-input-container>
+
+        <mt-input-container label="rating" [showTip]="false">
+          <input class="pull-left" type="number" formControlName="rating">
+        </mt-input-container>
+      </div>
+
+      <div class="modal-footer">
+        <mt-input-container label="date" [showTip]="false">
+          <input class="pull-left" type="date" formControlName="date" disabled value="{{getDate()}}">
+        </mt-input-container>
+
+        <button (click)="doGetRestaurant()" type="submit" class="btn btn-primary" [disabled]="chatForm.invalid">
+          Enviar
+        </button>
+      </div>
+
+    </div>
+  </form>
+
+</div>

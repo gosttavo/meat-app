@@ -18,7 +18,7 @@
         <table class="table">
           <tbody>
           <tr [@row]="rowState" *ngFor="let item of items()">
-            <th>({{item.quantity}}x) {{item.menuItem.name}}</th>
+            <th>({{item.quantity}}x) - {{item.menuItem.name}}</th>
 
             <td class="text-right">{{item.value() | currency: 'BRL' : 'symbol'}}</td>
             <td class="text-right">

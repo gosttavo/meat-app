@@ -2,9 +2,9 @@
   <div class="card-header padding-one">
     <h3 class="font-bold">
       Resumo do pedido:
-    </h3> 
+    </h3>
   </div>
-  
+
   <div class="card-body padding-one">
     <div class="row">
       <div class="col-sm-4">
@@ -12,22 +12,26 @@
         <p *ngFor="let item of orderHistoric.orderItems; let i = index">
           {{orderHistoric?.orderItems[i]?.name}}
           <span>
-            ({{orderHistoric?.orderItems[i]?.quantity}}x)
+            ({{orderHistoric?.orderItems[i]?.quantity}}x) -
           </span>
-        </p> 
+
+          <small>
+            <a [routerLink]="['/restaurants', orderHistoric?.orderItems[i]?.menuId,'/menu']">Comprar de novo</a>
+          </small>
+        </p>
       </div>
-      
+
       <div class="col-sm-4">
         <h4 class="font-bold">Seus dados:</h4>
         <p>E-mail: {{orderHistoric?.email}}</p>
         <p>Endereço: {{orderHistoric?.address}}, {{orderHistoric?.number}}</p>
         <p>Complemento: {{orderHistoric?.optionalAddress}}</p>
       </div>
-    
+
       <div class="col-sm-4">
         <h4 class="font-bold">Dados de pagamento:</h4>
         <p>
-          Forma de pagamento: 
+          Forma de pagamento:
           {{doFormatPaymentOption(orderHistoric?.paymentOption)}}
         </p>
         <p>Frete: R$ 8,00</p>
@@ -36,12 +40,10 @@
   </div>
 
   <div class="card-footer padding-one">
-    <h4 class="font-bold">Valor total: 
+    <h4 class="font-bold">Valor total:
       <span class="text-red">
         {{orderHistoric?.totalOrder | currency: 'BRL' : 'symbol'}}
       </span>
     </h4>
   </div>
 </div>
-
-
