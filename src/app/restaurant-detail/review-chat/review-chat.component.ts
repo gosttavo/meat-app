@@ -12,6 +12,8 @@ import { Review } from '../reviews/reviews.model';
 import { RestaurantService } from 'app/restaurants/restaurants.service';
 import { Restaurant } from 'app/restaurants/restaurant/restaurant.model';
 import { ActivatedRoute } from '@angular/router';
+import { User } from 'app/security/login/user.model';
+import { tap } from 'rxjs/operators';
 
 @Component({
   selector: 'mt-review-chat',
@@ -34,9 +36,12 @@ import { ActivatedRoute } from '@angular/router';
 
 export class ReviewChatComponent implements OnInit {
 
-  restaurantId: string;
+  //#region === variáveis ===
 
+  restaurantId: string;
   restaurant: Restaurant;
+  userInfo: User;
+  reviewId: string;
 
   toggleState = 'hidden';
 
@@ -46,21 +51,26 @@ export class ReviewChatComponent implements OnInit {
 
   date = new Date();
 
+  //#endregion
+
   constructor(
-      private loginService: LoginService,
-      private restaurantService: RestaurantService,
-      private reviewsService: ReviewService,
-      public datepipe: DatePipe,
-      private route: ActivatedRoute
-    ) { }
+    private loginService: LoginService,
+    private restaurantService: RestaurantService,
+    private reviewsService: ReviewService,
+    public datepipe: DatePipe,
+    private route: ActivatedRoute
+  ) { }
 
   ngOnInit() {
     this.doCreateChatForm();
+    this.doGetRestaurant();
   }
+
+  //#region === Funções de formulário ===
 
   doCreateChatForm() {
     this.chatForm = new FormGroup({
-      comment: new FormControl('', {
+      comments: new FormControl('', {
         validators: [Validators.required]
       }),
       rating: new FormControl(0, {
@@ -73,33 +83,61 @@ export class ReviewChatComponent implements OnInit {
   }
 
   getDate() {
-    let newDate = this.datepipe.transform(this.date, 'yyyy-MM-dd')
-    return newDate;
+    return this.datepipe.transform(this.date, 'yyyy-MM-dd')
   }
+
+  doClearOrderForm() {
+    if (this.chatForm) {
+      this.chatForm.reset();
+      this.doCreateChatForm();
+    }
+  }
+
+  //#endregion
+
+  //#region === Funções de Restaurant ===
 
   doGetRestaurantId() {
-    this.restaurantId = this.route.parent.snapshot.params['id'];
-    return this.restaurantId;
+    let restId: string;
+    return restId = this.route.parent.snapshot.params['id'];
   }
 
-  doGetRestaurant(): Restaurant {
-    let restaurants: Restaurant[] = this.restaurantService.restaurant;
-    let restaurantId = this.doGetRestaurantId();
-    let rest: any;
+  doGetRestaurant() {
+    this.restaurantId = this.doGetRestaurantId();
 
-    restaurants.forEach(restaurant => {
-      if (restaurant.id == restaurantId) {
-        rest = restaurant;
-      }
-    });
+    console.log('===RESTAURANT ID===', this.restaurantId)
 
-    console.log(rest);
-    return this.restaurant = rest;
+    this.restaurantService
+      .restaurantsById(this.restaurantId)
+      .subscribe(restaurant => {
+        console.log('===RESTAURANT===', restaurant)
+        this.restaurant = restaurant
+      });
   }
+
+  //#endregion
+
+  //#region === Funções de Usuário ===
+
+  user(): User {
+    return this.loginService.user;
+  }
+
+  //#endregion
 
   postReview(review: Review) {
-    console.log('===REVIEW===', review)
+    review.restaurant = this.doGetRestaurantId();
+    review.user = this.user().id;
+
+    console.log('===REVIEW===', review);
+
     this.reviewsService.postReview(review)
+      .pipe(tap((reviewId: string) => {
+        this.reviewId = reviewId;
+      }))
+
+    this.toggleAppear();
+    this.doClearOrderForm();
   }
 
   toggleAppear() {

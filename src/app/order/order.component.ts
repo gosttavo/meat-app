@@ -28,14 +28,14 @@ export class OrderComponent implements OnInit {
   orderId: string;
 
   paymentOptions: RadioOption[] = [
-    {label: 'Dinheiro', value: 'MON'},
-    {label: 'Débito', value: 'DEB'},
-    {label: 'Crédito', value: 'CRED'},
+    { label: 'Dinheiro', value: 'MON' },
+    { label: 'Débito', value: 'DEB' },
+    { label: 'Crédito', value: 'CRED' },
   ];
 
-  constructor(private orderService: OrderService, 
-              private router: Router,
-              private loginService: LoginService) { } 
+  constructor(private orderService: OrderService,
+    private router: Router,
+    private loginService: LoginService) { }
 
   ngOnInit() {
     console.log('== init order ==', this.itemsValue())
@@ -54,15 +54,15 @@ export class OrderComponent implements OnInit {
         validators: [Validators.required, Validators.minLength(5)]
       }
       ),
-      number: new FormControl('',{
+      number: new FormControl('', {
         validators: [Validators.required, Validators.pattern(this.numberPattern)]
-      } 
+      }
       ),
       optionalAddress: new FormControl(''),
-      paymentOption: new FormControl('', 
-       [Validators.required]
+      paymentOption: new FormControl('',
+        [Validators.required]
       ),
-      totalOrder: new FormControl(0), 
+      totalOrder: new FormControl(0),
     })
   }
 
@@ -80,31 +80,31 @@ export class OrderComponent implements OnInit {
   //#endregion
 
   //propriedade que vai retonar o valor dos itens
-  itemsValue(): number{
+  itemsValue(): number {
     return this.orderService.itemsValue();
   }
 
-  cartItems(): CartItem[]{
+  cartItems(): CartItem[] {
     return this.orderService.cartItems();
   }
 
   //#region === OPERAÇÕES DO CART ITEM === 
 
-  icrQuantity(item: CartItem){
+  icrQuantity(item: CartItem) {
     this.orderService.icrQuantity(item);
   }
 
-  dcrQuantity(item: CartItem){
+  dcrQuantity(item: CartItem) {
     this.orderService.dcrQuantity(item);
   }
 
-  remove(item: CartItem){
+  remove(item: CartItem) {
     this.orderService.remove(item);
   }
 
   //#endregion
 
-  isOrderCompleted(): boolean{
+  isOrderCompleted(): boolean {
     return this.orderId !== undefined;
   }
 
@@ -123,19 +123,16 @@ export class OrderComponent implements OnInit {
   doMapOrderItems(): OrderItem[] {
     return this.cartItems()
       .map((item: CartItem) => new OrderItem(
-                                    item.quantity, 
-                                    item.menuItem._id, 
-                                    item.menuItem.price,
-                                    item.menuItem.name
-                                  ))
+        item.quantity,
+        item.menuItem._id,
+        item.menuItem.price,
+        item.menuItem.name
+      ))
   }
 
   //#endregion
 
-  checkOrder(order: Order){
-    //mapear o array de cartitems e transformar em orderitems
-    // order.orderItems = this.cartItems()
-    //  .map((item: CartItem) => new OrderItem(item.quantity, item.menuItem.id))
+  checkOrder(order: Order) {
     this.orderService.checkOrder(order)
       .pipe(tap((orderId: string) => {
         this.orderId = orderId;

@@ -315,6 +315,7 @@ body {
 }
 
 .modal-position{
+  width: 70%;
   z-index: 1;
   position: absolute;
   top: 8rem;

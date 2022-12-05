@@ -1,5 +1,5 @@
-<div class="btn-modal">
-  <button class="btn btn-default" (click)="toggleAppear()">Avaliar</button>
+<div>
+  <button class="btn btn-success" (click)="toggleAppear()">Avaliar restaurante</button>
 </div>
 
 <!--modal-->
@@ -15,27 +15,29 @@
         </button>
 
         <h4 class="modal-title">
-          Escrever avaliação 
+          Escrever avaliação para
+          <strong>{{restaurant?.name}}</strong>
         </h4>
       </div>
 
       <div class="modal-body">
-        <mt-input-container label="commentary" [showTip]="false">
+        <mt-input-container label="Commentary" [showTip]="false">
           <input type="text" class="full-width modal-settings" 
-          formControlName="comment" placeholder="Deixe sua opinião...">
+          formControlName="comments" placeholder="Deixe sua opinião...">
         </mt-input-container>
 
-        <mt-input-container label="rating" [showTip]="false">
+        <mt-input-container label="Rating" [showTip]="false">
           <input class="pull-left" type="number" formControlName="rating">
         </mt-input-container>
       </div>
 
       <div class="modal-footer">
-        <mt-input-container label="date" [showTip]="false">
-          <input class="pull-left" type="date" formControlName="date" disabled value="{{getDate()}}">
-        </mt-input-container>
-
-        <button (click)="doGetRestaurant()" type="submit" class="btn btn-primary" [disabled]="chatForm.invalid">
+        <button 
+          type="submit" 
+          class="btn btn-success" 
+          (click)="postReview(chatForm?.value)" 
+          [disabled]="chatForm.invalid"
+        >
           Enviar
         </button>
       </div>

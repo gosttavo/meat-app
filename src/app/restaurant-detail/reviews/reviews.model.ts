@@ -3,7 +3,6 @@ export interface Review {
     date?: Date,
     rating: number,
     comments: string,
-    restaurantId?: string,
-    userId?: string,
-    userName?: string
+    restaurant?: string,
+    user?: string,
 }
