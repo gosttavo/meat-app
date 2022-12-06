@@ -3,7 +3,7 @@ import { Injectable } from "@angular/core";
 import { MEAT_API } from "app/app.api";
 import { Observable } from "rxjs";
 import { Review } from "./reviews.model";
-import { map } from 'rxjs/operators';
+import { tap } from 'rxjs/operators';
 
 
 @Injectable()
@@ -17,10 +17,11 @@ export class ReviewService {
         return this.http.get<Review[]>(`${MEAT_API}/reviews`)
     }
 
-    postReview(review: Review): Observable<string> {
+    postReview(review: Review): Observable<Review> {
+        console.log('=== SERVICE REVIEW ===', JSON.stringify(review));
         console.log('=== SERVICE REVIEW ===', review);
 
         return this.http.post<Review>(`${MEAT_API}/reviews`, review)
-                        .pipe(map(review => review.id));
+            .pipe(tap(review => this.review = review));
     }
 }

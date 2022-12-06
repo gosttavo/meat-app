@@ -17,15 +17,16 @@ export class SignUpService {
     constructor(private http: HttpClient) { };
 
     signUp( name: string,
+            lastName: string,
             password: string,
             email: string,
             cpf: string,
             gender: string,
             profiles: string[] ): Observable<User> {
 
-        return this.http.post<User>(`${MEAT_API}/users`,
-            {
+        return this.http.post<User>(`${MEAT_API}/users`,{
                 name: name,
+                lastName: lastName,
                 password: password,
                 email: email,
                 cpf: cpf,
@@ -33,5 +34,9 @@ export class SignUpService {
                 profiles: profiles
             })
             .pipe(tap(user => this.user = user));
+    }
+
+    doFindUserById(id: string): Observable<User> {
+        return this.http.get<User>(`${MEAT_API}/users/${id}`);
     }
 }

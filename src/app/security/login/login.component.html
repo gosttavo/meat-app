@@ -8,7 +8,8 @@
     </p>
 
     <form [formGroup]="loginForm">
-      <label for="email">E-mail:</label>
+
+      <strong>E-mail:</strong>
       <mt-input-container [showTip]="false">
         <input type="text" 
                 formControlName="email" 
@@ -17,7 +18,7 @@
         <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
       </mt-input-container>
 
-      <label for="password">Password:</label>
+      <strong>Senha:</strong>
       <mt-input-container [showTip]="false">
         <input type="password" 
                formControlName="password" 

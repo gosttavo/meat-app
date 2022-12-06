@@ -1,7 +1,6 @@
-<div style="margin-left: 15px;">
+<div class="modal-container">
   <mt-review-chat *ngIf="isLoggedIn()"></mt-review-chat>
 </div>
-
 <!--pipe async -> vai pegar os dados do subscrive e interar sobre ele -->
 <div class="col-xs-10 col-sm-6" *ngFor="let review of reviews?.items">
   <div [@reviewAppeared]="reviewState" class="box box-solid">
@@ -17,7 +16,7 @@
         <img *ngIf="review?.rating >= 4" alt="User Image" class="img-circle" src="assets/img/reactions/loved.png">
 
         <span class="username">
-          {{review?.userId}}
+          {{review?.userName}}
         </span>
 
         <span class="description">

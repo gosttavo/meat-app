@@ -1,5 +1,5 @@
 <div>
-  <button class="btn btn-success" (click)="toggleAppear()">Avaliar restaurante</button>
+  <button class="btn btn-success btn-modal" (click)="toggleAppear()">Avaliar restaurante</button>
 </div>
 
 <!--modal-->
@@ -11,7 +11,7 @@
 
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true" (click)="toggleAppear()">×</span>
+          <span aria-hidden="true" (click)="doCloseModal()">×</span>
         </button>
 
         <h4 class="modal-title">
@@ -21,13 +21,15 @@
       </div>
 
       <div class="modal-body">
+        <mt-input-container label="Rating" [showTip]="false">
+          <input class="pull-left" type="number" formControlName="rating">
+        </mt-input-container>
+
+        <mt-rating (rated)="rate()" class="rating"></mt-rating>
+
         <mt-input-container label="Commentary" [showTip]="false">
           <input type="text" class="full-width modal-settings" 
           formControlName="comments" placeholder="Deixe sua opinião...">
-        </mt-input-container>
-
-        <mt-input-container label="Rating" [showTip]="false">
-          <input class="pull-left" type="number" formControlName="rating">
         </mt-input-container>
       </div>
 
@@ -35,7 +37,7 @@
         <button 
           type="submit" 
           class="btn btn-success" 
-          (click)="postReview(chatForm?.value)" 
+          (click)="doCompleteReviewBody(chatForm?.value)" 
           [disabled]="chatForm.invalid"
         >
           Enviar

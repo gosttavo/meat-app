@@ -312,6 +312,8 @@ body {
   border: none;
   border-bottom: 1.8px rgb(173, 173, 173) solid;
   outline: none;
+  margin-top: 1.2rem;
+  
 }
 
 .modal-position{
@@ -323,4 +325,23 @@ body {
   right: 0; 
   margin-left: auto; 
   margin-right: auto; 
+}
+
+input[type='number'] {
+  -moz-appearance:textfield;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+
+.modal-container{
+  margin-top: 0.2rem;
+  margin-left: 1.4rem;
+  margin-bottom: 2.2rem;
+}
+
+.rating{
+  font-size: 2.2rem;
 }

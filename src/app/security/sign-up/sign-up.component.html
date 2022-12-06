@@ -1,9 +1,9 @@
-<section class="content login-content" style="margin: 3% auto">
+<section class="content login-content">
   <div class="login-logo">
     <b>MEAT</b> | Sign Up
   </div>
 
-  <div class="col-xs-12 col-sm-offset-3 col-sm-6 login-box-body">
+  <div class="col-xs-12 col-sm-offset-3 col-sm-6 login-box-body" style="margin-bottom: 3%;">
     <p class="login-box-msg">
       Cadastre-se para começar a fazer pedidos!
     </p>
@@ -12,17 +12,26 @@
 
       <input type="text" formControlName="profiles" disabled *ngIf="false">
       <!--name-->
-      <label for="name">Nome:</label>
-      <mt-input-container [showTip]="false">
+      <strong>Nome:</strong>
+      <mt-input-container [showTip]="false" label="Nome">
         <input type="text" 
                formControlName="name" 
                class="form-control" 
-               placeholder="Seu nome">
+               placeholder="Seu primeiro nome">
+      </mt-input-container>
+
+      <!--last name-->
+      <strong>Sobrenome:</strong>
+      <mt-input-container [showTip]="false" label="Sobrenome">
+        <input type="text" 
+                formControlName="lastName" 
+                class="form-control" 
+                placeholder="Seu sobrenome">
       </mt-input-container>
 
       <!--email-->
-      <label for="email">E-mail:</label>
-      <mt-input-container [showTip]="false">
+      <strong>E-mail:</strong>
+      <mt-input-container [showTip]="false" label="E-mail">
         <input type="text" 
                formControlName="email" 
                class="form-control" 
@@ -30,8 +39,9 @@
       </mt-input-container>
 
       <!--password-->
-      <label for="password">Senha:</label>
-      <mt-input-container [showTip]="false">
+      <strong>Senha:</strong>
+      <mt-input-container label="Senha"
+      errorMessage="A senha deve conter no mínimo 6 caracteres.">
         <input type="password" 
                formControlName="password" 
                class="form-control" 
@@ -39,26 +49,18 @@
                autocomplete="on">
       </mt-input-container>
 
-      <!--confirm password-->
-      <label for="confirm-pwd">Confirmar senha:</label>
-      <mt-input-container [showTip]="false">
-        <input type="password" 
-               formControlName="confirmPwd" 
-               class="form-control" 
-               placeholder="Confirme sua senha">
-      </mt-input-container>
-
       <!--cpf-->
-      <label for="cpf">CPF:</label>
-      <mt-input-container [showTip]="false">
+      <strong>CPF:</strong>
+      <mt-input-container label="CPF" [showTip]="false">
         <input type="text" 
                formControlName="cpf" 
                class="form-control" 
-               placeholder="Seu CPF">
+               placeholder="Seu CPF"
+               mask="000.000.000-00">
       </mt-input-container>
 
       <!--gender-->
-      <label for="gender">Gênero:</label>
+      <strong>Gênero:</strong>
       <select class="form-control" formControlName="gender">
         <option *ngFor="let gender of genders"
                 [ngValue]="gender.value">

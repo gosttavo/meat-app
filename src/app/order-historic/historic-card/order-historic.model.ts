@@ -6,7 +6,7 @@ export interface OrderHistoric {
     optionalAddress: string,
     paymentOption: string,
     orderItems: Array<OrderItems>,
-    id: number,
+    id: string,
 }
 
 export interface OrderItems{

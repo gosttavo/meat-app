@@ -10,43 +10,45 @@ import { Order } from "./order.model";
 import { MEAT_API } from "app/app.api";
 
 @Injectable()
-export class OrderService{
+export class OrderService {
 
     constructor(
-        private cartService: ShoppingCartService, 
+        private cartService: ShoppingCartService,
         private http: HttpClient
-    ){}
+    ) { }
 
-    itemsValue(): number{
+    itemsValue(): number {
         return this.cartService.total();
     }
 
-    cartItems(): CartItem[]{
+    cartItems(): CartItem[] {
         return this.cartService.items;
     }
 
     //métodos para enviar os itens CartItem para o
     //serviço
-    icrQuantity(item: CartItem){
+    icrQuantity(item: CartItem) {
         this.cartService.icrQuantity(item);
     }
 
-    dcrQuantity(item: CartItem){
+    dcrQuantity(item: CartItem) {
         this.cartService.dcrQuantity(item);
     }
 
-    remove(item: CartItem){
+    remove(item: CartItem) {
         this.cartService.removeItem(item);
     }
 
-    clear(){
+    clear() {
         this.cartService.clear();
     }
 
     //chamada HTTP -> finalizar a compra
-    checkOrder(order: Order): Observable<string>{
-        //3 parâmetros -> post
-        return this.http.post<Order>(`${MEAT_API}/orders`, order) 
-                        .pipe(map(order => order.id));            
+    checkOrder(order: Order): Observable<string> {
+        console.log('=== SERVICE ORDER ===', JSON.stringify(order));
+        console.log('=== SERVICE ORDER ===', order);
+
+        return this.http.post<Order>(`${MEAT_API}/orders`, order)
+            .pipe(map(order => order.id));
     }
 }

@@ -33,6 +33,8 @@ import { HistoricService } from './order-historic/order-historic.service';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { SignUpComponent } from './security/sign-up/sign-up.component';
 import { ReviewChatComponent } from './restaurant-detail/review-chat/review-chat.component';
+import { NgxMaskModule } from 'ngx-mask';
+
 
 @NgModule({
   declarations: [
@@ -63,7 +65,10 @@ import { ReviewChatComponent } from './restaurant-detail/review-chat/review-chat
     ReactiveFormsModule,
     SharedModule.forRoot(),
     BrowserAnimationsModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    NgxMaskModule.forRoot({
+      dropSpecialCharacters: false
+    })
   ],
   providers: [
     {provide: LOCALE_ID, useValue: 'pt'},

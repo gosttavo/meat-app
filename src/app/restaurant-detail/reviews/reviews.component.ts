@@ -1,12 +1,12 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { RestaurantService } from 'app/restaurants/restaurants.service';
-import { Observable } from 'rxjs/Observable';
 
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { ReviewService } from './reviews.service';
 import { Review } from './reviews.model';
 import { LoginService } from 'app/security/login/login.service';
+import { User } from 'app/security/login/user.model';
 
 @Component({
   selector: 'mt-reviews',
@@ -24,6 +24,8 @@ import { LoginService } from 'app/security/login/login.service';
 export class ReviewsComponent implements OnInit {
 
   reviewState = 'ready';
+
+  user: User;
 
   @Input() reviews: Review[];
 

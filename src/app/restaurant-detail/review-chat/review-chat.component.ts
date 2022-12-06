@@ -13,7 +13,8 @@ import { RestaurantService } from 'app/restaurants/restaurants.service';
 import { Restaurant } from 'app/restaurants/restaurant/restaurant.model';
 import { ActivatedRoute } from '@angular/router';
 import { User } from 'app/security/login/user.model';
-import { tap } from 'rxjs/operators';
+import { catchError, tap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'mt-review-chat',
@@ -33,7 +34,6 @@ import { tap } from 'rxjs/operators';
     ])
   ]
 })
-
 export class ReviewChatComponent implements OnInit {
 
   //#region === variáveis ===
@@ -41,15 +41,14 @@ export class ReviewChatComponent implements OnInit {
   restaurantId: string;
   restaurant: Restaurant;
   userInfo: User;
+  chatForm: FormGroup;
+
+  date = new Date();
   reviewId: string;
 
   toggleState = 'hidden';
 
-  chatForm: FormGroup;
-
-  notificationService: any;
-
-  date = new Date();
+  rated: boolean;
 
   //#endregion
 
@@ -70,15 +69,9 @@ export class ReviewChatComponent implements OnInit {
 
   doCreateChatForm() {
     this.chatForm = new FormGroup({
-      comments: new FormControl('', {
-        validators: [Validators.required]
-      }),
-      rating: new FormControl(0, {
-        validators: [Validators.required]
-      }),
-      date: new FormControl(this.getDate(), {
-        validators: [Validators.required]
-      })
+      comments: new FormControl(''),
+      rating: new FormControl(1, {validators: [Validators.required]}),
+      date: new FormControl(this.getDate(), {validators: [Validators.required]})
     })
   }
 
@@ -93,13 +86,28 @@ export class ReviewChatComponent implements OnInit {
     }
   }
 
+  toggleAppear() {
+    this.toggleState = this.toggleState === 'hidden' ? 'visible' : 'hidden';
+  }
+
+  doCloseModal() {
+    this.rate(false);
+    this.doClearOrderForm();
+    this.toggleAppear();
+  }
+
+  rate(arg: boolean = true){
+    this.rated = arg;
+  }
+  
   //#endregion
 
   //#region === Funções de Restaurant ===
 
   doGetRestaurantId() {
-    let restId: string;
-    return restId = this.route.parent.snapshot.params['id'];
+    let restId: string = this.route.parent.snapshot.params['id'];
+  
+    return restId;
   }
 
   doGetRestaurant() {
@@ -110,8 +118,8 @@ export class ReviewChatComponent implements OnInit {
     this.restaurantService
       .restaurantsById(this.restaurantId)
       .subscribe(restaurant => {
-        console.log('===RESTAURANT===', restaurant)
-        this.restaurant = restaurant
+        console.log('===RESTAURANT===', restaurant);
+        this.restaurant = restaurant;
       });
   }
 
@@ -125,23 +133,30 @@ export class ReviewChatComponent implements OnInit {
 
   //#endregion
 
-  postReview(review: Review) {
+  //#region === Funções de Review ===
+
+  doCompleteReviewBody(review: Review){
     review.restaurant = this.doGetRestaurantId();
     review.user = this.user().id;
+    review.userName = this.user().name;
 
+    this.postReview(review);
+  }
+
+  postReview(review: Review) {
     console.log('===REVIEW===', review);
 
-    this.reviewsService.postReview(review)
-      .pipe(tap((reviewId: string) => {
-        this.reviewId = reviewId;
-      }))
+    this.reviewsService.postReview(review).subscribe(res => {
+      console.log('=== res postReview ===', res);
+    }, resError => {
+      console.log('===ERROR postReview ===', resError);
+    }, () => {
+    
+    })
 
-    this.toggleAppear();
-    this.doClearOrderForm();
+    this.doCloseModal();
   }
 
-  toggleAppear() {
-    this.toggleState = this.toggleState === 'hidden' ? 'visible' : 'hidden';
-  }
+  //#endregion
 
 }

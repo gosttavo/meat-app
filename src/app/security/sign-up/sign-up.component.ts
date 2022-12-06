@@ -18,10 +18,12 @@ export class SignUpComponent implements OnInit {
     {label: 'Fem', value: 'Female'}
   ]
 
-  constructor(private signUpService: SignUpService,
-              private notificationService: NotificationService,
-              private activatedRoute: ActivatedRoute,
-              private router: Router) { }
+  constructor(
+    private signUpService: SignUpService,
+    private notificationService: NotificationService,
+    private activatedRoute: ActivatedRoute,
+    private router: Router
+  ) { }
 
   ngOnInit() {
     this.doCreateSignForm();
@@ -37,6 +39,13 @@ export class SignUpComponent implements OnInit {
           Validators.minLength(3)
         ]
       }),
+      lastName: new FormControl('', {
+        validators: [
+          Validators.required,           
+          Validators.maxLength(120),
+          Validators.minLength(5)
+        ]
+      }),
       email: new FormControl('', {
         validators: [
           Validators.required,
@@ -44,13 +53,10 @@ export class SignUpComponent implements OnInit {
         ]
       }),
       password: new FormControl('', {
-        validators: [Validators.required]
-      }),
-      confirmPwd: new FormControl('', {
-          validators: [
-            Validators.required, 
-            //this.equalsTo
-          ]
+        validators: [
+          Validators.required,
+          Validators.minLength(6),
+        ]
       }),
       cpf: new FormControl('', {
         validators: [Validators.required]
@@ -62,28 +68,13 @@ export class SignUpComponent implements OnInit {
     })
   }
 
-  public equalsTo(FormControl: AbstractControl): {[key: string] : boolean }{
-    const password = FormControl.get('password');
-    const passwordConfirmation = FormControl.get('confirmPwd');
-    
-    let key: any = undefined;
-
-    if(!password || !passwordConfirmation){
-      key = undefined;
-    }
-
-    if (password.value !== passwordConfirmation.value){
-      key = {passwordsNotMatch: true};
-    }
-    return key;
-  }
-
   doNavigateTo(){
     this.navigateTo = this.activatedRoute.snapshot.params['to'] || btoa('/login');
   }
 
   signUp(){
     this.signUpService.signUp(this.signForm.value.name, 
+                              this.signForm.value.lastName,
                               this.signForm.value.password, 
                               this.signForm.value.email,
                               this.signForm.value.cpf,
