@@ -1,50 +1,44 @@
 <div>
-  <button class="btn btn-success btn-modal" (click)="toggleAppear()">Avaliar restaurante</button>
+  <button class="btn btn-success" (click)="toggleAppear()">Avaliar restaurante</button>
 </div>
 
 <!--modal-->
-<div class="modal-dialog modal-position search-bar" [@toggleChat]="toggleState">
+  <div class="modal-dialog modal-position modal-appearance" [@toggleChat]="toggleState">
 
+    <form [formGroup]="chatForm">
+      <div class="modal-content">
 
-  <form [formGroup]="chatForm">
-    <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true" (click)="doCloseModal()">×</span>
+          </button>
 
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true" (click)="doCloseModal()">×</span>
-        </button>
+          <h4 class="modal-title">
+            Escrever avaliação para
+            <strong>{{restaurant?.name}}</strong>
+          </h4>
+        </div>
 
-        <h4 class="modal-title">
-          Escrever avaliação para
-          <strong>{{restaurant?.name}}</strong>
-        </h4>
+        <div class="modal-body">
+          <mt-rating formControlName="rating" (rated)="rate($event)" 
+          class="rating"></mt-rating>
+
+          <mt-input-container label="Commentary" [showTip]="false">
+            <input type="text" class="full-width modal-settings" 
+            formControlName="comments" placeholder="Deixe sua opinião...">
+          </mt-input-container>
+
+          <button 
+            type="submit" 
+            class="btn btn-success" 
+            (click)="doCompleteReviewBody(chatForm?.value)" 
+            [disabled]="chatForm.invalid"
+          >
+            Enviar avaliação
+          </button>
+        </div>
+
       </div>
+    </form>
 
-      <div class="modal-body">
-        <mt-input-container label="Rating" [showTip]="false">
-          <input class="pull-left" type="number" formControlName="rating">
-        </mt-input-container>
-
-        <mt-rating (rated)="rate()" class="rating"></mt-rating>
-
-        <mt-input-container label="Commentary" [showTip]="false">
-          <input type="text" class="full-width modal-settings" 
-          formControlName="comments" placeholder="Deixe sua opinião...">
-        </mt-input-container>
-      </div>
-
-      <div class="modal-footer">
-        <button 
-          type="submit" 
-          class="btn btn-success" 
-          (click)="doCompleteReviewBody(chatForm?.value)" 
-          [disabled]="chatForm.invalid"
-        >
-          Enviar
-        </button>
-      </div>
-
-    </div>
-  </form>
-
-</div>
+  </div>

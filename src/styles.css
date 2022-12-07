@@ -274,7 +274,12 @@ body {
 }
 
 .search-bar{
-  opacity: 0;
+  opacity:0;
+  max-height: 0px;
+}
+
+.modal-appearance{
+  display: none;
   max-height: 0px;
 }
 
@@ -317,7 +322,7 @@ body {
 }
 
 .modal-position{
-  width: 70%;
+  width: 45%;
   z-index: 1;
   position: absolute;
   top: 8rem;
@@ -343,5 +348,5 @@ input::-webkit-inner-spin-button {
 }
 
 .rating{
-  font-size: 2.2rem;
+  font-size: 2.8rem;
 }

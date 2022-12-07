@@ -1,6 +1,6 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { DatePipe } from '@angular/common'
 
 import { FormControl, FormGroup, Validators } from '@angular/forms';
@@ -13,8 +13,6 @@ import { RestaurantService } from 'app/restaurants/restaurants.service';
 import { Restaurant } from 'app/restaurants/restaurant/restaurant.model';
 import { ActivatedRoute } from '@angular/router';
 import { User } from 'app/security/login/user.model';
-import { catchError, tap } from 'rxjs/operators';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'mt-review-chat',
@@ -23,32 +21,31 @@ import { Observable } from 'rxjs';
   animations: [
     trigger('toggleChat', [
       state('hidden', style({
-        opacity: 0,
+        display: 'none',
         "max-height": "0px"
       })),
       state('visible', style({
-        opacity: 1,
-        "max-height": "100px"
+        display: 'block',
+        "max-height": "70px",
+        "margin-top": "20px"
       })),
-      transition('* => *', animate('0ms 0s ease-in-out'))
+      transition('* => *', animate('0s 0s ease-in-out'))
     ])
   ]
 })
 export class ReviewChatComponent implements OnInit {
 
   //#region === variáveis ===
+  reviewId: string;
+  restaurantId: string; 
+  ratingValue: number = 5; 
 
-  restaurantId: string;
   restaurant: Restaurant;
   userInfo: User;
   chatForm: FormGroup;
-
   date = new Date();
-  reviewId: string;
 
   toggleState = 'hidden';
-
-  rated: boolean;
 
   //#endregion
 
@@ -70,7 +67,7 @@ export class ReviewChatComponent implements OnInit {
   doCreateChatForm() {
     this.chatForm = new FormGroup({
       comments: new FormControl(''),
-      rating: new FormControl(1, {validators: [Validators.required]}),
+      rating: new FormControl(5, {validators: [Validators.required]}),
       date: new FormControl(this.getDate(), {validators: [Validators.required]})
     })
   }
@@ -91,13 +88,8 @@ export class ReviewChatComponent implements OnInit {
   }
 
   doCloseModal() {
-    this.rate(false);
     this.doClearOrderForm();
     this.toggleAppear();
-  }
-
-  rate(arg: boolean = true){
-    this.rated = arg;
   }
   
   //#endregion
@@ -136,6 +128,7 @@ export class ReviewChatComponent implements OnInit {
   //#region === Funções de Review ===
 
   doCompleteReviewBody(review: Review){
+    review.rating = this.ratingValue;
     review.restaurant = this.doGetRestaurantId();
     review.user = this.user().id;
     review.userName = this.user().name;
@@ -155,6 +148,11 @@ export class ReviewChatComponent implements OnInit {
     })
 
     this.doCloseModal();
+  }
+
+  rate(evt){
+    this.ratingValue = evt;
+    console.log('===RATE FUNCTION===', this.ratingValue);
   }
 
   //#endregion

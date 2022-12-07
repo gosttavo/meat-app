@@ -27,6 +27,8 @@ export class ReviewsComponent implements OnInit {
 
   user: User;
 
+  restId: string;
+
   @Input() reviews: Review[];
 
   constructor(private restaurantsService: RestaurantService,
@@ -35,10 +37,13 @@ export class ReviewsComponent implements OnInit {
     private route: ActivatedRoute) { }
 
   ngOnInit() {
-    //sub-rota -> parent.snapshot
-    // this.reviews = this.restaurantsService
-    // .restaurantsReviews(this.route.parent.snapshot.params['id']);
     this.doGetReviews();
+  }
+
+  doGetRestaurantId() {
+    this.restId = this.route.parent.snapshot.params['id'];
+  
+    return this.restId;
   }
 
   isLoggedIn(): boolean {
@@ -46,7 +51,8 @@ export class ReviewsComponent implements OnInit {
   }
   
   doGetReviews() {
-    this.reviewsService.reviews().subscribe(reviews => { this.reviews = reviews }
-      , resError => { console.log('=== erro ===', resError) });
+    console.log('=== doGetReviews ===', this.doGetRestaurantId())
+    this.reviewsService.reviews(this.doGetRestaurantId()).subscribe(reviews => { this.reviews = reviews }, 
+      resError => { console.log('=== erro ===', resError) });
   }
 }
