@@ -97,13 +97,13 @@ export class ReviewChatComponent implements OnInit {
   //#region === Funções de Restaurant ===
 
   doGetRestaurantId() {
-    let restId: string = this.route.parent.snapshot.params['id'];
+    this.restaurantId = this.route.parent.snapshot.params['id'];
   
-    return restId;
+    return this.restaurantId;
   }
 
   doGetRestaurant() {
-    this.restaurantId = this.doGetRestaurantId();
+    this.doGetRestaurantId();
 
     console.log('===RESTAURANT ID===', this.restaurantId)
 

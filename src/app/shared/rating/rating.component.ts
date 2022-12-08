@@ -21,34 +21,31 @@ export class RatingComponent implements OnInit, ControlValueAccessor {
 
   previousRate: number;
 
-  onChange: any;
-
   constructor() { }
 
   //#region === CONTROL VALUE ACCESSOR ===
 
+  onChange = (value: any) => {};
+
   setRate(r: number){
     this.rate = r;
-    console.log('====> ', this.rate);
-    this.onChange(this.rate);
-
     this.previousRate = undefined;
+    this.onChange(this.rate);
     this.rated.emit(this.rate);
-
     console.log('after ====> ', this.rate);
   }
 
-  writeValue(r: number) {
+  writeValue(r: number): void {
     this.rate = r;
     console.log('===WRITE VALUE=== ', this.rate);
   }
 
-  registerOnTouched(fn: any) {
+  registerOnTouched(fn: any): void {
     this.onChange = fn;
   }
   
-  registerOnChange(fn: any) {}
-  setDisabledState?(isDisabled: boolean) {}
+  registerOnChange(fn: any): void {}
+  setDisabledState?(isDisabled: boolean): void {}
 
   //#endregion
 
