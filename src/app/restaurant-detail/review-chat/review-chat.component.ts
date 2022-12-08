@@ -19,20 +19,42 @@ import { User } from 'app/security/login/user.model';
   templateUrl: './review-chat.component.html',
   providers: [DatePipe],
   animations: [
-    trigger('toggleChat', [
-      state('hidden', style({
-        display: 'none',
-        "max-height": "0px"
-      })),
-      state('visible', style({
-        display: 'block',
-        "max-height": "70px",
-        "margin-top": "20px"
-      })),
-      transition('* => *', animate('0s 0s ease-in-out'))
-    ])
+    // fundo escuro que fica atrás do modal
+    trigger('overlay', [
+      transition(':enter', [
+        // Inicia com o opacity zerado
+        style({ opacity: 0 }),
+        
+        // efetua a animação de 250ms para o
+        // o opacity de 0 até 0.5
+        animate('250ms', style({ opacity: .5 })),
+      ]),
+      transition(':leave', [
+        // Quando for esconder o overlay, 
+        // anima do opacity atual, 0.5, até
+        // o valor 0
+        animate('500ms', style({ opacity: 0 }))
+      ])
+    ]),
+    // animação na parte branca do modal
+    trigger('modal', [
+      transition(':enter', [
+        // inicia com o modal "lá em cima"
+        style({ top: -999 }),
+        
+        // e finaliza com o modal no meio da tela
+        animate('500ms', style({ top: '50%' })),
+      ]),
+      transition(':leave', [
+      
+        // para esconder o modal, basta
+        // "jogar ele lá para cima da tela"
+        animate('250ms', style({ top: -999 }))
+      ])
+    ]),
   ]
 })
+
 export class ReviewChatComponent implements OnInit {
 
   //#region === variáveis ===
@@ -45,7 +67,11 @@ export class ReviewChatComponent implements OnInit {
   chatForm: FormGroup;
   date = new Date();
 
-  toggleState = 'hidden';
+  toggleAppear: boolean = false;
+
+  toggle () {
+    this.toggleAppear = !this.toggleAppear;
+  }
 
   //#endregion
 
@@ -83,13 +109,9 @@ export class ReviewChatComponent implements OnInit {
     }
   }
 
-  toggleAppear() {
-    this.toggleState = this.toggleState === 'hidden' ? 'visible' : 'hidden';
-  }
-
   doCloseModal() {
     this.doClearOrderForm();
-    this.toggleAppear();
+    this.toggle();
   }
   
   //#endregion
@@ -98,7 +120,6 @@ export class ReviewChatComponent implements OnInit {
 
   doGetRestaurantId() {
     this.restaurantId = this.route.parent.snapshot.params['id'];
-  
     return this.restaurantId;
   }
 

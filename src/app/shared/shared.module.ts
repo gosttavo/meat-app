@@ -24,7 +24,7 @@ import { ReviewService } from "app/restaurant-detail/reviews/reviews.service";
         InputComponent, 
         RadioComponent, 
         RatingComponent, 
-        SnackbarComponent
+        SnackbarComponent, 
     ],
     imports: [
         FormsModule, 
@@ -38,7 +38,7 @@ import { ReviewService } from "app/restaurant-detail/reviews/reviews.service";
         FormsModule, 
         ReactiveFormsModule, 
         CommonModule,
-        SnackbarComponent
+        SnackbarComponent,
     ]
 })
 export class SharedModule {

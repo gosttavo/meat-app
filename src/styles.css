@@ -311,27 +311,6 @@ body {
   width: 100%;
 }
 
-.modal-settings{
-  height: 2.6rem;
-  resize: none;
-  border: none;
-  border-bottom: 1.8px rgb(173, 173, 173) solid;
-  outline: none;
-  margin-top: 1.2rem;
-  
-}
-
-.modal-position{
-  width: 45%;
-  z-index: 1;
-  position: absolute;
-  top: 8rem;
-  left: 0; 
-  right: 0; 
-  margin-left: auto; 
-  margin-right: auto; 
-}
-
 input[type='number'] {
   -moz-appearance:textfield;
 }
@@ -341,7 +320,37 @@ input::-webkit-inner-spin-button {
   -webkit-appearance: none;
 }
 
-.modal-container{
+.modal-label-settings{
+  height: 2.6rem;
+  resize: none;
+  border: none;
+  border-bottom: 1.8px rgb(173, 173, 173) solid;
+  outline: none;
+  margin-top: 1.2rem;
+}
+
+.modal-style{
+  box-shadow: 0px 1px 4px #333333e0;
+  z-index: 11;
+  background-color: #fff; 
+  border-radius: 2px;
+}
+
+.modal-size{
+  width: 40rem;
+  height: 26rem;
+  padding: 8px;
+}
+
+.modal-position{
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  bottom: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.modal-button-container{
   margin: 0.2rem 1.4rem 2.2rem 1.4rem;
   display: flex;
   justify-content: space-between;
@@ -350,19 +359,6 @@ input::-webkit-inner-spin-button {
 
 .rating{
   font-size: 2.8rem;
-}
-
-.modal {
-  background: #fff;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px #333;
-  min-width: 320px;
-  position: fixed;
-  left: 50%;
-  padding: 24px;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 11;
 }
 
 .overlay {
@@ -374,4 +370,11 @@ input::-webkit-inner-spin-button {
   top: 0;
   width: 100vw;
   z-index: 10;
+}
+
+@media (max-width:600px){
+  .modal-size{
+    width: 34rem;
+    height: 28rem;
+  }
 }
