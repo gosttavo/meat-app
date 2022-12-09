@@ -1,5 +1,8 @@
-<div class="modal-button-container">
-  <p>3 avaliações</p>
+<div class="modal-button-container" [@reviewAppeared]="reviewState">
+  <h4>{{reviews?.items.length}} 
+    <span *ngIf="reviews?.items.length != 1">avaliações</span>
+    <span *ngIf="reviews?.items.length == 1">avaliação</span>
+  </h4>
 
   <mt-review-chat *ngIf="isLoggedIn()"></mt-review-chat>
 </div>
@@ -7,7 +10,7 @@
 <div class="col-xs-10 col-sm-6" *ngFor="let review of reviews?.items">
   <div [@reviewAppeared]="reviewState" class="box box-solid">
     <div class="box-header with-border">
-      <span class="review-score pull-right" style="color: #e8ca09;">
+      <span class="review-score pull-right" style="color: #edd227;">
         <i class="fa fa-star"></i>
         {{review?.rating}}
       </span>

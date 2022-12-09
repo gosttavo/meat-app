@@ -20,7 +20,6 @@ export class ReviewService {
     }
 
     postReview(review: Review): Observable<Review> {
-        console.log('=== SERVICE REVIEW ===', JSON.stringify(review));
         console.log('=== SERVICE REVIEW ===', review);
 
         return this.http.post<Review>(`${MEAT_API}/reviews`, review)
