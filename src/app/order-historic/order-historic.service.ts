@@ -5,21 +5,22 @@ import { MEAT_API } from "app/app.api";
 
 import { Observable } from "rxjs";
 import { OrderHistoric } from "./historic-card/order-historic.model";
+import { User } from "app/security/login/user.model";
+import { LoginService } from "app/security/login/login.service";
 
 @Injectable()
 export class HistoricService {
 
-    historic: OrderHistoric[];
+  historic: OrderHistoric[];
 
-    constructor(private http: HttpClient){}
+  constructor(private http: HttpClient,
+              private loginService: LoginService) { }
 
-    orderHistoric(search?: string): Observable<OrderHistoric[]>{
-      let params: HttpParams = undefined;
+  user(): User {
+    return this.loginService.user;
+  }
 
-      if(search){
-          params = new HttpParams().set('q', search);
-      }
-
-      return this.http.get<OrderHistoric[]>(`${MEAT_API}/orders`, {params: params});
-    }
+  orderHistoric(): Observable<OrderHistoric[]> {
+    return this.http.get<OrderHistoric[]>(`${MEAT_API}/orders/${this.user().email}`);
+  }
 }

@@ -53,7 +53,6 @@ export class OrderHistoricComponent implements OnInit {
   ngOnInit() {
     this.historicInit();
     this.doCreateSearchBar();
-    this.doReadValueChanges();
   }
   
   historicInit(){
@@ -67,18 +66,6 @@ export class OrderHistoricComponent implements OnInit {
 
   doCreateSearchBar() {
     this.searchControl = new FormControl('');
-  }
-
-  doReadValueChanges() {
-    this.searchControl.valueChanges
-    .pipe(
-      debounceTime(500), 
-      distinctUntilChanged(), 
-      switchMap(searchTerm => this.historicService
-        .orderHistoric(searchTerm)
-        .pipe(catchError(error => from([]))))
-    )
-    .subscribe(orderHistoric => this.orderHistoric = orderHistoric);
   }
 
   toggleAppear() {

@@ -39,12 +39,11 @@ export class RestaurantsComponent implements OnInit {
   pageSize: number = 8;
 
   loginService: any;
-
   searchControl: FormControl;//vai ouvir valores digitados
-
   router: any;
-
   actualPage: number;
+
+  verify: boolean;
 
   //#endregion
 
@@ -70,15 +69,6 @@ export class RestaurantsComponent implements OnInit {
     filters['search'] = searchTerm;
 
     this.doGetRestaurants(filters);
-  }
-
-  verifyPreviousPage(): boolean {
-    let verify = false;
-    if(this.currentPage === 1){
-      verify = true;
-    }
-    
-    return verify;
   }
 
   verifyPage(){

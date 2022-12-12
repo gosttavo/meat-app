@@ -40,13 +40,24 @@
     </div>
   </div>
 
-  <div class="my-pagination">
-    <button (click)="loadPreviousPage()" [disabled]="verifyPreviousPage()">
-      «
+  <!--Essa div do botão vai ter um *ngIf pra verificar se existe páginação-->
+  <!--Se não existir ela deve ser ocultada-->
+  <!--Mesma logíca pro botão de carregar próxima página-->
+  <div class="my-pagination" *ngIf="restaurants?._links?.next || restaurants?._links?.previous">
+    <button class="pagination-button" 
+            [ngClass]="{'activeBtn': restaurants?._links?.previous}" 
+            (click)="loadPreviousPage()" 
+            [disabled]="!restaurants?._links?.previous">
+      <span class="glyphicon glyphicon-chevron-left"></span>
     </button>
+
     <span>{{restaurants?._links?.self}}</span>
-    <button (click)="loadNextPage()">
-      »
+
+    <button class="pagination-button" 
+            [ngClass]="{'activeBtn': restaurants?._links?.next}" 
+            (click)="loadNextPage()" 
+            [disabled]="!restaurants?._links?.next">
+      <span class="glyphicon glyphicon-chevron-right"></span>
     </button>
   </div>
 

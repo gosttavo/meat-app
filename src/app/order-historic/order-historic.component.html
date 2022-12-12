@@ -1,31 +1,3 @@
-<section class="content-header">
-  <h1>
-    Histórico de compras
-
-    <a class="search-link pull-right" (click)="toggleAppear()">
-      <span *ngIf="iptSearch.value">
-        <small class="search-value">
-          "{{iptSearch.value}}"
-        </small>
-      </span>
-      <i class="fa fa-search"></i>
-    </a>
-  </h1>
-
-  <!--barra de busca-->
-  <div class="row">
-    <div class="col-xs-12 search-bar" [@toggleSearch]="toggleState">
-      <div class="form-group">
-        <input #iptSearch
-          type="text" 
-          class="form-control" 
-          placeholder="O que você está procurando?"
-          [formControl]="searchControl">
-      </div>
-    </div>
-  </div>
-</section>
-
 <section class="content">
     <div *ngFor="let orderHistoric of orderHistoric?.items">
       <div 

@@ -378,3 +378,11 @@ input::-webkit-inner-spin-button {
     height: 28rem;
   }
 }
+
+.pagination-button{
+  border: none;
+}
+
+.activeBtn{
+  color: #dd4b39;
+}
