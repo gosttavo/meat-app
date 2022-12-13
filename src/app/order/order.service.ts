@@ -44,8 +44,7 @@ export class OrderService {
     }
 
     //chamada HTTP -> finalizar a compra
-    checkOrder(order: Order): Observable<string> {
-        console.log('=== SERVICE ORDER ===', JSON.stringify(order));
+    checkOrder(order: Order): Observable<string> {;
         console.log('=== SERVICE ORDER ===', order);
 
         return this.http.post<Order>(`${MEAT_API}/orders`, order)

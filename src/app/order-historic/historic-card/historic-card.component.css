@@ -25,3 +25,10 @@ p{
     font-size: bold;
     color: #dd4b39;
 }
+
+.modal-size{
+    width: 65%;
+    height: 55rem;
+    padding: 8px;
+}
+  

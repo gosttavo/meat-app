@@ -9,5 +9,5 @@ export interface Restaurant {
     hours?: string,
     previous?: string,
     next?: string,
-    self: string
+    self: string,
 }

@@ -1,45 +1,60 @@
-<div>
-  <div class="card-header padding-one">
-    <h3 class="font-bold">Resumo do pedido</h3>
+<div class="modal-position modal-size modal-style">
+
+  <div class="modal-header">
+    <h4 class="modal-title">
+      <strong>Detalhes da compra:</strong>
+    </h4>
   </div>
 
-  <div class="card-body padding-one">
+  <div class="modal-body">
     <div class="row">
-      <div class="col-sm-4">
-        <h4 class="font-bold">Você comprou:</h4>
-        <p *ngFor="let item of orderHistoric.orderItems; let i = index">
-          {{orderHistoric?.orderItems[i]?.name}}
-          <strong>
-            ({{orderHistoric?.orderItems[i]?.quantity}}x) 
-          </strong>
-        </p>
-      </div>
+      <div class="col-md-12">
+        <div class="row">
 
-      <div class="col-sm-4">
-        <h4 class="font-bold">Seus dados:</h4>
-        <p>E-mail: <strong>{{orderHistoric?.email}}</strong></p>
-        <p>Endereço: <strong>{{orderHistoric?.address}}, {{orderHistoric?.number}}</strong></p>
-        <p>Complemento: <strong>{{orderHistoric?.optionalAddress}}</strong></p>
-      </div>
+          <div class="col-md-6">
+            <h4><strong>Informações do pedido:</strong></h4>
+            <p>Código da compra: {{orderHistoric?._id}}</p>
+            <p>Data da compra: {{orderHistoric?.date | date:'dd/MM/yyyy, h:mm:ss a'}}</p>
+            <p>Forma de pagamento:</p>
+            <p>Valor total: {{orderHistoric?.totalOrder | currency: 'BRL' : 'symbol'}}</p>
+          </div>
 
-      <div class="col-sm-4">
-        <h4 class="font-bold">Dados de pagamento:</h4>
-        <p>
-          Forma de pagamento:
-          <strong>
-            {{doFormatPaymentOption(orderHistoric?.paymentOption)}}
-          </strong>
-        </p>
-        <p>Frete: <strong> R$ 8,00 </strong></p>
+          <div class="col-md-6">
+            <h4><strong>Informações do cliente:</strong></h4>
+            <p>Nome: {{orderHistoric?.customer?.name}}</p>
+            <p>E-mail: {{orderHistoric?.customer?.email}}</p>
+            <p>CPF: {{orderHistoric?.customer?.cpf}}</p>        
+            <p>Telefone: {{order?.customer?.phone}}</p>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <h5>
+          <strong>Itens do pedido:</strong>
+        </h5>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Produto</th>
+              <th>Quantidade</th>
+              <th>Preço</th>
+              <th>Subtotal</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of order?.items">
+              <td>{{item?.product?.name}}</td>
+              <td>{{item?.quantity}}</td>
+              <td>{{item?.product?.price | currency: 'BRL' : 'symbol'}}</td>
+              <td>{{item?.subtotal | currency: 'BRL' : 'symbol'}}</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
   </div>
 
-  <div class="card-footer padding-one">
-    <h4 class="font-bold">Valor total:
-      <strong class="text-red">
-        {{orderHistoric?.totalOrder | currency: 'BRL' : 'symbol'}}
-      </strong>
-    </h4>
-  </div>
 </div>

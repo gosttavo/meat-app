@@ -21,6 +21,6 @@ export class HistoricService {
   }
 
   orderHistoric(): Observable<OrderHistoric[]> {
-    return this.http.get<OrderHistoric[]>(`${MEAT_API}/orders/${this.user().email}`);
+    return this.http.get<OrderHistoric[]>(`${MEAT_API}/orders/historic/${this.user().id}`);
   }
 }

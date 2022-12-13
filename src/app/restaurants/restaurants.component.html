@@ -45,16 +45,18 @@
   <!--Mesma logíca pro botão de carregar próxima página-->
   <div class="my-pagination" *ngIf="restaurants?._links?.next || restaurants?._links?.previous">
     <button class="pagination-button" 
-            [ngClass]="{'activeBtn': restaurants?._links?.previous}" 
+            [ngClass]="{'desactiveBtn': !restaurants?._links?.previous}" 
             (click)="loadPreviousPage()" 
             [disabled]="!restaurants?._links?.previous">
       <span class="glyphicon glyphicon-chevron-left"></span>
     </button>
 
-    <span>{{restaurants?._links?.self}}</span>
+    <!-- <span class="desactiveBtn" *ngIf="restaurants?._links?.previous">{{currentPage - 1}}</span> -->
+    <span>{{currentPage}}</span>
+    <!-- <span class="desactiveBtn" *ngIf="restaurants?._links?.next">{{currentPage + 1}}</span> -->
 
     <button class="pagination-button" 
-            [ngClass]="{'activeBtn': restaurants?._links?.next}" 
+            [ngClass]="{'desactiveBtn': !restaurants?._links?.next}" 
             (click)="loadNextPage()" 
             [disabled]="!restaurants?._links?.next">
       <span class="glyphicon glyphicon-chevron-right"></span>

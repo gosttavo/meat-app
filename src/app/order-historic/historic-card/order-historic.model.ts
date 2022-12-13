@@ -1,6 +1,5 @@
 export interface OrderHistoric {
-    name: string,
-    email: string,
+    user: string,
     address: string,
     number: number,
     optionalAddress: string,

@@ -381,8 +381,10 @@ input::-webkit-inner-spin-button {
 
 .pagination-button{
   border: none;
+  color: #dd4b39;
 }
 
-.activeBtn{
-  color: #dd4b39;
+.desactiveBtn{
+  color: #000c09;
+  opacity: 40%;
 }

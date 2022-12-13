@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormControl } from "@angular/forms";
+import { DatePipe } from '@angular/common'
 
 import { Router } from '@angular/router';
 
@@ -14,28 +15,29 @@ import { OrderService } from './order.service';
 @Component({
   selector: 'mt-order',
   templateUrl: './order.component.html',
+  providers: [DatePipe]
 })
 export class OrderComponent implements OnInit {
-
-  emailPattern = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
 
   numberPattern = /^[0-9]*$/
 
   orderForm: FormGroup;
 
   delivery: number = 8;
-
   orderId: string;
+  date = new Date();
 
   paymentOptions: RadioOption[] = [
     { label: 'Dinheiro', value: 'MON' },
     { label: 'Débito', value: 'DEB' },
     { label: 'Crédito', value: 'CRED' },
+    { label: 'PIX', value: 'PIX' }
   ];
 
   constructor(private orderService: OrderService,
     private router: Router,
-    private loginService: LoginService) { }
+    private loginService: LoginService,
+    public datePipe: DatePipe) { }
 
   ngOnInit() {
     console.log('== init order ==', this.itemsValue())
@@ -48,8 +50,9 @@ export class OrderComponent implements OnInit {
 
   doCreateOrderForm() {
     this.orderForm = new FormGroup({
-      name: new FormControl(this.user().name),
-      email: new FormControl(this.user().email),
+      user: new FormControl(this.user().id, {
+        validators: [Validators.required]
+      }),
       address: new FormControl('', {
         validators: [Validators.required, Validators.minLength(5)]
       }
@@ -62,6 +65,7 @@ export class OrderComponent implements OnInit {
       paymentOption: new FormControl('',
         [Validators.required]
       ),
+      date: new FormControl(this.getDate(), { validators: [Validators.required] }),
       totalOrder: new FormControl(0),
     })
   }
@@ -77,16 +81,11 @@ export class OrderComponent implements OnInit {
     this.orderForm.controls.totalOrder.setValue(value);
   }
 
+  getDate() {
+    return this.datePipe.transform(this.date, 'yyyy-MM-dd HH:mm:ss')
+  }
+
   //#endregion
-
-  //propriedade que vai retonar o valor dos itens
-  itemsValue(): number {
-    return this.orderService.itemsValue();
-  }
-
-  cartItems(): CartItem[] {
-    return this.orderService.cartItems();
-  }
 
   //#region === OPERAÇÕES DO CART ITEM === 
 
@@ -102,11 +101,20 @@ export class OrderComponent implements OnInit {
     this.orderService.remove(item);
   }
 
-  //#endregion
+  //propriedade que vai retonar o valor dos itens
+  itemsValue(): number {
+    return this.orderService.itemsValue();
+  }
+
+  cartItems(): CartItem[] {
+    return this.orderService.cartItems();
+  }
 
   isOrderCompleted(): boolean {
     return this.orderId !== undefined;
   }
+
+  //#endregion
 
   //#region === FUNCOES PARA SALVAR ===
 
@@ -133,16 +141,12 @@ export class OrderComponent implements OnInit {
   //#endregion
 
   checkOrder(order: Order) {
-    this.orderService.checkOrder(order)
-      .pipe(tap((orderId: string) => {
-        this.orderId = orderId;
-      }))
-      .subscribe((orderId: string) => {
-        //navegar p tela de sucesso
-        this.router.navigate(['/order-summary']);
-        //limpar o carrinho
-        this.orderService.clear();
-      })
+    this.orderService.checkOrder(order).pipe(tap((orderId: string) => 
+      { this.orderId = orderId }))
+    .subscribe((orderId: string) => {
+      this.router.navigate([`/order-summary`]); //navegar p tela de sucesso
+      this.orderService.clear(); //limpar o carrinho
+    })
   }
 
   user(): User {

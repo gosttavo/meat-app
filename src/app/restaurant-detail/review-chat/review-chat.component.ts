@@ -1,4 +1,4 @@
-import { animate, state, style, transition, trigger } from '@angular/animations';
+import { animate, style, transition, trigger } from '@angular/animations';
 
 import { Component, OnInit } from '@angular/core';
 import { DatePipe } from '@angular/common'
@@ -79,7 +79,7 @@ export class ReviewChatComponent implements OnInit {
     private loginService: LoginService,
     private restaurantService: RestaurantService,
     private reviewsService: ReviewService,
-    public datepipe: DatePipe,
+    public datePipe: DatePipe,
     private route: ActivatedRoute
   ) { }
 
@@ -99,7 +99,7 @@ export class ReviewChatComponent implements OnInit {
   }
 
   getDate() {
-    return this.datepipe.transform(this.date, 'yyyy-MM-dd')
+    return this.datePipe.transform(this.date, 'yyyy-MM-dd')
   }
 
   doClearOrderForm() {

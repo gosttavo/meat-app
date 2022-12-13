@@ -9,8 +9,8 @@ class Order{
         public totalOrder: number,
         public id?: string,
         public restaurantId?: string,
-        public userId?: string
-
+        public userId?: string,
+        public date?: Date,
         ){}
 }
 
