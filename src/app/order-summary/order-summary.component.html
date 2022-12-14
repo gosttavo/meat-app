@@ -5,8 +5,8 @@
   <div class="jumbotron">
     <h2>Pedido Conluído</h2>
     <p>Seu pedido foi recebido pelo restaurante. Prepare a mesa que a comida está chegando!</p>
-    <p><b>Avalie</b> sua experiência:</p>
-    <p><mt-rating (rated)="rate()"></mt-rating></p>
+    <p><b>Avalie</b> sua experiência com a plataforma:</p>
+    <p><mt-rating (rated)="rate($event)"></mt-rating></p>
     <p *ngIf="rated">
       Obrigado pela sua avaliação!
     </p>

@@ -50,6 +50,9 @@ export class OrderComponent implements OnInit {
 
   doCreateOrderForm() {
     this.orderForm = new FormGroup({
+      userName: new FormControl(this.formatUserName(), {
+        validators: [Validators.required, Validators.minLength(5)]
+      }),
       user: new FormControl(this.user().id, {
         validators: [Validators.required]
       }),
@@ -68,6 +71,12 @@ export class OrderComponent implements OnInit {
       date: new FormControl(this.getDate(), { validators: [Validators.required] }),
       totalOrder: new FormControl(0),
     })
+  }
+
+  formatUserName(){;
+    let name = this.user().name
+    let lastName = this.user().lastName;
+    return name + ' ' + lastName;
   }
 
   doClearOrderForm() {

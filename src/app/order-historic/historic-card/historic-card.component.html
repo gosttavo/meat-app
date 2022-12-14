@@ -1,11 +1,25 @@
-<div class="modal-style modal-position">
-  <div class="modal-dialog modal-lg">
+<div class="modal-style modal-position" style="padding: 8px;">
+  <div class="modal-lg">
     
       <div class="modal-content">
 
         <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true" style="font-size: 3rem;">×</span>
+          </button>
+
+          <span *ngIf="order?.rating">
+            Avaliação:  
+            <i *ngFor="let star of [].constructor(order?.rating)" 
+            class="fa fa-star ylw-star"></i>
+          </span>
+
+          <span *ngIf="!order?.rating">
+            Não avaliou a compra? <a [routerLink]="['/order-summary']">Avalie aqui.</a>
+          </span>
+
           <h4 class="modal-title">
-            <strong>Detalhes da compra:</strong>
+            <strong>Detalhes do pedido</strong> - ({{order?._id}})
           </h4>
         </div>
     
@@ -20,16 +34,12 @@
                     <strong>Informações do pedido:</strong>
                   </h4>
                   <p>
-                    Código da compra:
-                    <strong>{{order?._id}}  </strong>       
-                  </p>
-                  <p>
                     Data da compra: 
                     <strong>{{order?.date | date:'dd/MM/yyyy, h:mm:ss a'}}</strong>
                   </p>
                   <p>
                     Forma de pagamento: 
-                    <strong>CARTÃO CRÉDITO</strong>
+                    <strong>{{doFormatPaymentOption(order?.paymentOption)}}</strong>
                   </p>
                   <h4>
                     Valor total: 
@@ -39,9 +49,15 @@
     
                 <div class="col-md-6">
                   <h4><strong>Informações do cliente:</strong></h4>
-                  <p>Gustavo Goulart</p>
-                  <p>Rua Bento Gonçalves, 59</p>        
-                  <p>Próximo ao sindisaúde</p>
+                  <p>{{order?.userName}}</p>
+                  <p>
+                    Endereço: 
+                    <strong>{{order?.address}}, {{order?.number}}</strong>
+                  </p>       
+                  <p *ngIf="order?.optionalAddress">
+                    Complemento: 
+                    <strong>{{order?.optionalAddress}}</strong>
+                  </p>
                 </div>
     
               </div>
@@ -59,6 +75,7 @@
                     <th>Produto</th>
                     <th>Quantidade</th>
                     <th>Preço (Unidade)</th>
+                    <th>Subtotal</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -66,6 +83,7 @@
                     <td>{{order?.orderItems[i]?.name}}</td>
                     <td>{{order?.orderItems[i]?.quantity}}</td>
                     <td>{{order?.orderItems[i]?.valueItem | currency: 'BRL' : 'symbol'}}</td>
+                    <td>{{(order?.orderItems[i]?.valueItem * order?.orderItems[i]?.quantity) | currency: 'BRL' : 'symbol'}}</td>
                   </tr>
                 </tbody>
               </table>

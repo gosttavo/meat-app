@@ -50,4 +50,9 @@ export class OrderService {
         return this.http.post<Order>(`${MEAT_API}/orders`, order)
             .pipe(map(order => order.id));
     }
+
+    updateRatingOrder(orderId: string, rating: number): Observable<string> {
+        return this.http.patch(`${MEAT_API}/orders/${orderId}`, { rating: rating })
+            .pipe(map(() => orderId));
+    }
 }

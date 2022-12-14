@@ -7,6 +7,7 @@ import { ReviewService } from './reviews.service';
 import { Review } from './reviews.model';
 import { LoginService } from 'app/security/login/login.service';
 import { User } from 'app/security/login/user.model';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'mt-reviews',
@@ -31,6 +32,8 @@ export class ReviewsComponent implements OnInit {
 
   @Input() reviews: Review[];
 
+  reviews$: Observable<Review[]>;
+
   constructor(private restaurantsService: RestaurantService,
     private loginService: LoginService,
     private reviewsService: ReviewService,
@@ -42,7 +45,6 @@ export class ReviewsComponent implements OnInit {
 
   doGetRestaurantId() {
     this.restId = this.route.parent.snapshot.params['id'];
-  
     return this.restId;
   }
 
@@ -52,6 +54,7 @@ export class ReviewsComponent implements OnInit {
   
   doGetReviews() {
     console.log('=== doGetReviews ===', this.doGetRestaurantId())
+
     this.reviewsService.reviews(this.doGetRestaurantId()).subscribe(reviews => { this.reviews = reviews }, 
       resError => { console.log('=== erro ===', resError) });
   }

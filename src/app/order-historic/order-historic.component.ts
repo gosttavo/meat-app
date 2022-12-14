@@ -9,6 +9,8 @@ import { OrderHistoric } from './historic-card/order-historic.model';
 
 import { animate, state, style, transition, trigger } from '@angular/animations';
 
+import { doFormatPaymentOption } from './doFormartPaymentoOption';
+
 @Component({
   selector: 'mt-order-historic',
   templateUrl: './order-historic.component.html',
@@ -89,6 +91,10 @@ export class OrderHistoricComponent implements OnInit {
     this.doCreateSearchBar();
   }
 
+  sendOrder(order: OrderHistoric) {
+    return this.order = order;
+  }
+
   toggle() {
     if(!this.toggleModal){
       this.toggleModal = true;
@@ -116,22 +122,7 @@ export class OrderHistoricComponent implements OnInit {
   }
   
   doFormatPaymentOption(paymentOption) {
-    let payment: string;
-
-    if (paymentOption === 'MON') {
-      payment= 'DINHEIRO';
-    }
-    else if (paymentOption === 'DEB') {
-      payment = 'CARTÃO DÉBITO';
-    }
-    else if (paymentOption === 'CRED') {
-      payment = 'CARTÃO CRÉDITO';
-    }
-    else if (paymentOption === 'PIX') {
-      payment = 'PIX';
-    }
-
-    return payment;
+    return paymentOption = doFormatPaymentOption(paymentOption);
   }
 
 }

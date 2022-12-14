@@ -12,8 +12,7 @@ export class ReviewService {
 
     review: Review;
 
-    constructor(private http: HttpClient,
-                private route: ActivatedRoute) { }
+    constructor(private http: HttpClient) { }
 
     reviews(restId): Observable<Review[]> {
         return this.http.get<Review[]>(`${MEAT_API}/reviews/${restId}`)

@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { doFormatPaymentOption } from '../doFormartPaymentoOption';
 
 import { OrderHistoric } from './order-historic.model';
 
@@ -13,5 +14,9 @@ export class HistoricCardComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+  }
+
+  doFormatPaymentOption(paymentOption) {
+    return paymentOption = doFormatPaymentOption(paymentOption);
   }
 }

@@ -2,6 +2,7 @@ export interface OrderHistoric {
     user: string,
     address: string,
     number: number,
+    rating: number,
     optionalAddress: string,
     paymentOption: string,
     orderItems: Array<OrderItems>,

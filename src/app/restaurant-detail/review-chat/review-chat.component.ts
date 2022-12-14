@@ -1,6 +1,6 @@
 import { animate, style, transition, trigger } from '@angular/animations';
 
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { DatePipe } from '@angular/common'
 
 import { FormControl, FormGroup, Validators } from '@angular/forms';
@@ -13,6 +13,7 @@ import { RestaurantService } from 'app/restaurants/restaurants.service';
 import { Restaurant } from 'app/restaurants/restaurant/restaurant.model';
 import { ActivatedRoute } from '@angular/router';
 import { User } from 'app/security/login/user.model';
+import { ReviewsComponent } from '../reviews/reviews.component';
 
 @Component({
   selector: 'mt-review-chat',
@@ -80,7 +81,8 @@ export class ReviewChatComponent implements OnInit {
     private restaurantService: RestaurantService,
     private reviewsService: ReviewService,
     public datePipe: DatePipe,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    public reviewComponent: ReviewsComponent
   ) { }
 
   ngOnInit() {
@@ -92,7 +94,7 @@ export class ReviewChatComponent implements OnInit {
 
   doCreateChatForm() {
     this.chatForm = new FormGroup({
-      comments: new FormControl(''),
+      comments: new FormControl('', {validators: [Validators.required]}),
       rating: new FormControl(5, {validators: [Validators.required]}),
       date: new FormControl(this.getDate(), {validators: [Validators.required]})
     })
@@ -164,11 +166,12 @@ export class ReviewChatComponent implements OnInit {
       console.log('=== res postReview ===', res);
     }, resError => {
       console.log('===ERROR postReview ===', resError);
-    }, () => {
-    
-    })
+    }, () => {});
 
     this.doCloseModal();
+
+    this.reviewComponent.doGetReviews();
+    console.log('===DO GET REVIEWS===');
   }
 
   rate(evt){

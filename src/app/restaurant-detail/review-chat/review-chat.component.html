@@ -26,8 +26,8 @@
 
     <div class="modal-footer">
       <button class="btn btn-default" (click)="doCloseModal()">Cancelar</button>
-      <button type="submit" class="btn btn-success" (click)="doCompleteReviewBody(chatForm?.value)"
-        [disabled]="chatForm.invalid">
+      <button type="submit" class="btn btn-success" 
+      (click)="doCompleteReviewBody(chatForm?.value)" [disabled]="chatForm.invalid">
         Enviar avaliação
       </button>
     </div>
