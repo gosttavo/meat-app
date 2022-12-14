@@ -1,3 +1,12 @@
+<ng-container *ngIf="toggleModal" @modal>
+  <div *ngFor="let order of orderHistoric?.items">
+    <mt-historic-card [order]="order">
+    </mt-historic-card>
+  </div>
+
+  <div (click)="toggle()" @overlay class="overlay"></div>
+</ng-container>
+
 <h3>Meus pedidos:</h3>
 
 <div class="box" [@historicAppeared]="historicState">
@@ -52,8 +61,11 @@
                 <td>{{order?.date | date:'dd/MM/yyyy, h:mm:ss a'}}</td>
                 <td>{{doFormatPaymentOption(order?.paymentOption)}}</td>
                 <td>{{order?.totalOrder | currency: 'BRL' : 'symbol'}}</td>
-                <td>
+                <td *ngIf="order?.rating">
                   <i class="fa fa-star" style="color: #e8ca09;"></i>
+                </td>
+                <td *ngIf="!order?.rating">
+                  Não avaliou a compra? <a href="#">Avalie aqui.</a>
                 </td>
                 <td>
                   <button (click)="toggle()" class="btn btn-success">
@@ -81,13 +93,4 @@
   </div>
 
 </div>
-
-<ng-container *ngIf="toggleModal" @modal>
-  <mt-historic-card>
-    [orderHistoric]="orderHistoric"
-  </mt-historic-card>
-  <div (click)="toggle()"
-  @overlay
-  class="overlay"></div>
-</ng-container>
 

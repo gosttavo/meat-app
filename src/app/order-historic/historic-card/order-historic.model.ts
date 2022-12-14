@@ -10,5 +10,6 @@ export interface OrderHistoric {
 
 export interface OrderItems{
     quantity: number,
-    menuId: string
+    menuId: string,
+    price: number
 }
