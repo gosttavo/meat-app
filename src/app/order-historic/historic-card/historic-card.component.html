@@ -1,12 +1,12 @@
 <div class="modal-style modal-position" style="padding: 8px;">
-  <div class="modal-lg">
+  <div class="modal-lg" style="width: 60rem;">
     
       <div class="modal-content">
 
         <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true" style="font-size: 3rem;">×</span>
-          </button>
+          <h4 class="modal-title">
+            <strong>Detalhes do pedido</strong> - ({{order?._id}})
+          </h4>
 
           <span *ngIf="order?.rating">
             Avaliação:  
@@ -17,10 +17,6 @@
           <span *ngIf="!order?.rating">
             Não avaliou a compra? <a [routerLink]="['/order-summary']">Avalie aqui.</a>
           </span>
-
-          <h4 class="modal-title">
-            <strong>Detalhes do pedido</strong> - ({{order?._id}})
-          </h4>
         </div>
     
         <div class="modal-body">
@@ -35,7 +31,7 @@
                   </h4>
                   <p>
                     Data da compra: 
-                    <strong>{{order?.date | date:'dd/MM/yyyy, h:mm:ss a'}}</strong>
+                    <strong>{{order?.date | date:'dd/MM/yyyy, hh:mm:ss'}}</strong>
                   </p>
                   <p>
                     Forma de pagamento: 

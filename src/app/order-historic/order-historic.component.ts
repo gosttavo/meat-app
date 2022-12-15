@@ -9,7 +9,7 @@ import { OrderHistoric } from './historic-card/order-historic.model';
 
 import { animate, state, style, transition, trigger } from '@angular/animations';
 
-import { doFormatPaymentOption } from './doFormartPaymentoOption';
+import { doFormatPaymentOption } from './doFormatPaymentOption';
 
 @Component({
   selector: 'mt-order-historic',

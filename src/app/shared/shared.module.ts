@@ -29,7 +29,7 @@ import { ReviewService } from "app/restaurant-detail/reviews/reviews.service";
     imports: [
         FormsModule, 
         ReactiveFormsModule, 
-        CommonModule
+        CommonModule    
     ],
     exports: [
         InputComponent, 

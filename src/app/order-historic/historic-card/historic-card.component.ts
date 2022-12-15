@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { doFormatPaymentOption } from '../doFormartPaymentoOption';
+import { doFormatPaymentOption } from '../doFormatPaymentOption';
 
 import { OrderHistoric } from './order-historic.model';
 
